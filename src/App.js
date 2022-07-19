@@ -1,8 +1,10 @@
 import React from "react";
-import AuthentificationPage from "./pages/AuthentificationPage";
+import AuthentificationForm from "./components/AuthentificationForm";
 
 function App() {
-  
+  return(
+    <AuthentificationForm/>
+  )
 }
 
 export default App;
