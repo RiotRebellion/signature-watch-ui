@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 function useAuthentification(){
-    const [status, setStatus] = React.useState(false)
-    const [token, setToken] = React.useState(null);
+    const [status, setStatus] = useState(false)
+    const [token, setToken] = useState(null);
 
     const login = useCallback((jwtToken) => {
         setToken(jwtToken)
@@ -19,12 +19,12 @@ function useAuthentification(){
     };
 
     useEffect(() => {
-        const data = json.parse(localStorage.getItem('User-Data'));
+        const data = JSON.parse(localStorage.getItem('User-Data'));
         if (data && data.token) {
             login(data.token)
         }
         setStatus(true);
-    } [login])
+    }, [login])
 
     return {login, logout, token, status}
 };

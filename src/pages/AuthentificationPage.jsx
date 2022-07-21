@@ -1,22 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { axiosContext } from '../contexts/AxiosContext';
 import { AuthContext } from '../contexts/AuthContext';
+import {useAuthentification} from '../hooks/useAuthentification'
 
-function AuthentificationForm(props) {
+function AuthentificationPage(props) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
-  
-  let token = '';
+  const { login, token, status} = useAuthentification()
 
-  const login = useContext(AuthContext);
-
-  const buttonHandler = async function(){
+  const authentificate = async function(){
     await axiosContext.post('/authentification/login', [username, password], { 
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(res => {
-      token = res.data.token
+    }).then(response => {
+      login(response.data.token)
     })
   }
 
@@ -35,11 +33,11 @@ function AuthentificationForm(props) {
             onChange={e => setPassword(e.target.value)}/>
           </label>
           <div>
-            <button type='submit' onClick={buttonHandler}>Зайти</button>
+            <button type='submit' onClick={authentificate}>Зайти</button>
           </div>
         </form>
     </div>
   )
 }
 
-export default AuthentificationForm
+export default AuthentificationPage
