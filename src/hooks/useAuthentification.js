@@ -1,11 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 
-function useAuthentification(){
+function useAuthentification() {
     const [status, setStatus] = useState(false)
     const [token, setToken] = useState(null);
 
     const login = useCallback((jwtToken) => {
         setToken(jwtToken)
+        setStatus(true)
         localStorage.setItem('User-Data', JSON.stringify({
             token: jwtToken,
         }));
@@ -26,7 +27,7 @@ function useAuthentification(){
         setStatus(true);
     }, [login])
 
-    return {login, logout, token, status}
+    return { login, logout, token, status }
 };
 
 export { useAuthentification };
