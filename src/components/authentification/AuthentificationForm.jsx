@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { axiosContext } from '../../contexts/AxiosContext';
 import { AuthContext } from '../../contexts/AuthContext';
-import { useAuthentification } from '../../hooks/useAuthentification'
 
 function AuthentificationForm(props) {
     const [username, setUsername] = useState(null);
@@ -11,20 +10,20 @@ function AuthentificationForm(props) {
 
     const authentificate = async function () {
         try {
-            await axiosContext.post('/authentification/login', [username, password], {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
+            await axiosContext.post('/authentification/login', [username, password],
+            ).then(response => {
                 if (response.data.isSuccess) {
-                    login(token)
+                    login(response.data.token, response.data.username);
                 }
-            })
+                else {
+                    alert(response.data.errors);
+                }
+            });
         }
         catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
         <div>
@@ -41,11 +40,11 @@ function AuthentificationForm(props) {
                         onChange={e => setPassword(e.target.value)} />
                 </label>
                 <div>
-                    <button type='submit' onClick={authentificate}>Зайти</button>
+                    <button type='submit' onClick={authentificate} onSubmit={e => e.preventDefault()}>Зайти</button>
                 </div>
             </form>
         </div>
-    )
+    );
 }
 
 export default AuthentificationForm
