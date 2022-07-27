@@ -1,12 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "react";
+
+import NavBar from '../NavBar/NavBar';
 
 function Dashboard() {
     return (
         <>
-            <Navbar></Navbar>
-            <Outlet></Outlet>
+            <NavBar/>
+            <Outlet/>
         </>
     );
 }

@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { axiosContext } from '../../contexts/AxiosContext';
 import { AuthContext } from '../../contexts/AuthContext';
 
+import styles from './AuthentificationForm.module.css';
+
 function AuthentificationForm(props) {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -31,25 +33,48 @@ function AuthentificationForm(props) {
     )
 
     return (
-        <div>
-            <h3>Реестр ИБИДО</h3>
-            <p>{authenftificationException}</p>
-            <form onSubmit={e => e.preventDefault()}>
-                <label>
-                    <p>{usernameValidationException}</p>
-                    <p>Username</p>
-                    <input type='text'
-                        onChange={e => setUsername(e.target.value)} />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type='password'
-                        onChange={e => setPassword(e.target.value)} />
-                </label>
-                <div>
-                    <button type='submit' onClick={Authentificate}>Зайти</button>
-                </div>
-            </form>
+        <div 
+            className={styles.container}>
+            <div>
+                Реестр ИБИДО
+            </div>
+            <p>
+                {authenftificationException}
+            </p>
+            <div 
+                className={styles.AuthentificationForm}>
+                <form 
+                    onSubmit={e => e.preventDefault()}>
+                    <div 
+                        className={styles.loginInput}>
+                        <p>
+                            {usernameValidationException}
+                        </p>
+                        <p>
+                            Username
+                        </p>
+                        <input 
+                            type='text' 
+                            onChange={e => setUsername(e.target.value)} />   
+                    </div>
+                    <div 
+                        className={styles.passwordInput}>
+                        <p>
+                            Password
+                        </p>
+                        <input 
+                            type='password'
+                            onChange={e => setPassword(e.target.value)} />
+                    </div>
+                    <div>
+                        <button 
+                            type='submit' 
+                            onClick={Authentificate}>
+                            Зайти
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

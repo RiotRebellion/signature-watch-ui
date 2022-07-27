@@ -5,8 +5,8 @@ import { AuthContext } from './contexts/AuthContext';
 import { useAuthentification } from './hooks/useAuthentification';
 
 import AuthentificationForm from './components/authentification/AuthentificationForm';
-import { NotFound } from './components/NotFound';
-import Dashboard  from "./components/Dashboard";
+import { NotFound } from './components/NotFound/NotFound';
+import Dashboard  from "./components/Dashboard/Dashboard";
 
 function App() {
   const { login, logout, username, token, status } = useAuthentification();
