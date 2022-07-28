@@ -8,9 +8,7 @@ function AuthentificationForm(props) {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
 
-    const [authenftificationException, setAuthenftificationException] = useState([]);
-
-    const [usernameValidationException, setUsernameValidationException] = useState('');
+    const [authenftificationException, setAuthenftificationException] = useState();
 
     const { login } = useContext(AuthContext);
 
@@ -23,54 +21,45 @@ function AuthentificationForm(props) {
                     setAuthenftificationException(response.data.errors);
             }).catch(error => {
                 let validationErrors = error.response.data.errors;
-                setUsernameValidationException(validationErrors["Username"]);
+                console.log(validationErrors);
+                setAuthenftificationException(validationErrors["Username"][0]);
             });
     };
 
     useEffect(() => {
-        setUsernameValidationException('');
+        setAuthenftificationException('');
     }, [username] 
     )
 
     return (
-        <div 
-            className={styles.container}>
-            <div>
-                Реестр ИБИДО
-            </div>
-            <p>
-                {authenftificationException}
-            </p>
-            <div 
-                className={styles.AuthentificationForm}>
-                <form 
-                    onSubmit={e => e.preventDefault()}>
-                    <div 
-                        className={styles.loginInput}>
-                        <p>
-                            {usernameValidationException}
-                        </p>
-                        <p>
-                            Username
-                        </p>
+        <div className={styles.container}>
+            <div className={styles.authentificationForm}>
+                <div className={styles.title}>
+                    Реестр ИБИДО
+                </div>
+                <div className={styles.exceptions}>
+                    <p>
+                        {authenftificationException}
+                    </p>
+                </div>
+                <form onSubmit={e => e.preventDefault()}>
+                    <div className={styles.loginInput}>
                         <input 
+                            placeholder='Логин'
                             type='text' 
                             onChange={e => setUsername(e.target.value)} />   
                     </div>
-                    <div 
-                        className={styles.passwordInput}>
-                        <p>
-                            Password
-                        </p>
+                    <div className={styles.passwordInput}>
                         <input 
+                            placeholder='Пароль'
                             type='password'
                             onChange={e => setPassword(e.target.value)} />
                     </div>
-                    <div>
+                    <div className={styles.submitButton}>
                         <button 
                             type='submit' 
                             onClick={Authentificate}>
-                            Зайти
+                            Авторизоваться
                         </button>
                     </div>
                 </form>

@@ -1,35 +1,139 @@
-div.container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+input {
+    outline: none;
+    border: none;
 }
 
-div.header{
-    align-items: center;
+div.container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 div.authentificationForm{
+    width: 390px;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+    padding-bottom: 90px;
+    padding-top: 50px;
+}
+
+div.authentificationForm > form{
     width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 200px 300px;
-    grid-gap: 20px;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(white, 75%, #c9c8c5);
-    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+div.title{
+    font-family: Ubuntu-Bold;
+    font-size: 30px;
+    color: #403866;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 16px;
+}
+
+div.exceptions{
+    font-family: Ubuntu-Bold;
+    font-size: 12px;
+    color: #f57369;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 16px;
 }
 
 div.loginInput{
-    align-items: center;
-    vertical-align: top;
-    justify-content: center;
+    width: 100%;
+    position: relative;
+    background-color: #e6e6e6;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    margin-bottom: 16px;
+}
+
+div.loginInput > input{
+    font-family: Ubuntu-Bold;
+    color: #403866;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 62px;
+    padding: 0 20px 0 38px;
 }
 
 div.passwordInput{
-    align-items: center;
+    width: 100%;
+    position: relative;
+    background-color: #e6e6e6;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    margin-bottom: 16px;
+}
+
+
+div.passwordInput > input{
+    font-family: Ubuntu-Bold;
+    color: #403866;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 62px;
+    padding: 0 20px 0 38px;
+}
+
+div.submitButton{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 17px;
+}
+
+div.submitButton > button{
+    font-family: Ubuntu-Bold;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 62px;
+    background-color: #827ffe;
+    border-radius: 3px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+div.submitButton > button:hover{
+    opacity: 0.8;
+}
+
+div.submitButton > button:{
+    opacity: 0.8;
 }
