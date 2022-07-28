@@ -133,7 +133,3 @@ div.submitButton > button{
 div.submitButton > button:hover{
     opacity: 0.8;
 }
-
-div.submitButton > button:{
-    opacity: 0.8;
-}
