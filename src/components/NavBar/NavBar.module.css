@@ -1,0 +1,28 @@
+nav{
+    display: flex;
+    justify-content: left;
+    background: grey;
+}
+
+.title{
+    font-family: Ubuntu-Bold;
+    font-size: 30px;
+    color: #403866;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: cente;
+    width: 100%;
+    display: block;
+    padding-bottom: 16px;
+}
+
+.menu{
+    display: flex;
+    font-family: Ubuntu-Bold;
+    font-size: 30px;
+    color: #403866;
+}
+
+.submenu{
+    display: inline;
+}
