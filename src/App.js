@@ -25,16 +25,17 @@ function RoutesComponent({isLogin = false}) {
   if (isLogin) {
     return (
       <Routes>
-        <Route path='/' element={<Dashboard/>} />
-        <Route path='*' element={<NotFound />} />
+        <Route path='/' element={<Dashboard/>}>
+        </Route>
       </Routes>
     );
   }
   else {
     return (
       <Routes>
-        <Route path='/' element={<AuthentificationForm />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path='/' element={<AuthentificationForm />} >
+          <Route path='*' element={<NotFound />} />
+        </Route>
       </Routes>
     );
   }

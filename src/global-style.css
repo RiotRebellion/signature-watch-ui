@@ -22,11 +22,3 @@ li {
 div#root {
   display: flex;
 }
-
-@media (max-width: 1200px) {
-  div#root {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    grid-template-rows: 1fr;
-  }
-}

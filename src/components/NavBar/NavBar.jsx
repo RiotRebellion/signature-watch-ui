@@ -1,6 +1,9 @@
 import React, {useContext} from "react";
 import { NavLink } from "react-router-dom";
+
 import { AuthContext } from "../../contexts/AuthContext";
+
+import styles from './NavBar.module.css';
 
 function NavBar() {
     const { logout } = useContext(AuthContext);
@@ -8,32 +11,41 @@ function NavBar() {
     return (
         <header>
             <nav>
-              <div>ИБИДО</div>  
-              <ul>
-                <li>
-                    <NavLink
-                    to='employee'
-                    >
-                        Сотрудники
-                    </NavLink>              
-                </li>
-                <li>
-                    <NavLink
-                    to='signature'>
-                        Электронные подписи
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                    to='admin'>
-                        Администрирование
-                    </NavLink>
-                </li>
-              </ul>
+                <div className={styles.title}>
+                    ИБИДО
+                </div>  
+                <ul className={styles.menu}>
+                    <li>
+                        <NavLink
+                            to='security'>
+                            Информационная безопасность
+                        </NavLink>
+                        <ul>
+                            <li>
+                                <NavLink
+                                to='security'>
+                                    Сотрудники
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                to='security'>
+                                    Электронные подписи
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <NavLink
+                        to='signature'>
+                            СЭД "ДЕЛО"
+                        </NavLink>
+                    </li>
+                </ul>
 
-              <NavLink to='/' onClick={logout}>
-                <button>Выход</button>
-              </NavLink>
+                <NavLink to='/' onClick={logout}>
+                    <button>Выход</button>
+                </NavLink>
             </nav>
         </header>
     );

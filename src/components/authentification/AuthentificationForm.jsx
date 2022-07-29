@@ -22,7 +22,7 @@ function AuthentificationForm(props) {
             }).catch(error => {
                 let validationErrors = error.response.data.errors;
                 console.log(validationErrors);
-                setAuthenftificationException(validationErrors["Username"][0]);
+                setAuthenftificationException(validationErrors["Username"]);
             });
     };
 
