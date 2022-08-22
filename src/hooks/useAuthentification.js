@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { ApplyToken } from '../contexts/AxiosContext';
 
 function useAuthentification() {
     const [username, setUsername] = useState('');
@@ -7,6 +8,7 @@ function useAuthentification() {
     const login = useCallback((jwtToken, username) => {
         setToken(jwtToken);
         setUsername(username);
+        ApplyToken(jwtToken);
         localStorage.setItem('signaturewatch', JSON.stringify({
             username: username,
             token: jwtToken
@@ -24,6 +26,7 @@ function useAuthentification() {
         const data = JSON.parse(localStorage.getItem('signaturewatch'));
         if (data && data.token) {
             login(data.token, data.username)
+            ApplyToken(data.token);
         }
     }, [login]);
 

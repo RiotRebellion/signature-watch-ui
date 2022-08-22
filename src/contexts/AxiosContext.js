@@ -1,9 +1,14 @@
 import axios from 'axios';
 
-export const axiosContext = axios.create({
+export const AxiosContext = axios.create({
     baseURL: 'http://localhost:59386',
     
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 })
+
+export const ApplyToken = (token) => {
+    let auth = `Bearer ${token}`;
+    AxiosContext.defaults.headers.common['Authorization'] = auth;
+}

@@ -31,6 +31,7 @@ function RoutesComponent({isLogin = false}) {
           <Route path='/employees' element={<EmployeesPage/>}>
 
           </Route>
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     );
