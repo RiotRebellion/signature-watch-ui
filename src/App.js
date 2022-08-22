@@ -4,9 +4,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
 import { useAuthentification } from './hooks/useAuthentification';
 
-import AuthentificationForm from './components/authentification/AuthentificationForm';
-import { NotFound } from './components/NotFound/NotFound';
-import Dashboard  from "./components/Dashboard/Dashboard";
+import Dashboard  from './components/Dashboard';
+
+import AuthentificationForm from './pages/AuthentificationPage';
+import { NotFound } from './pages/NotFound';
+import EmployeesPage from './pages/employee/EmployeesPage';
 
 function App() {
   const { login, logout, username, token, status } = useAuthentification();
@@ -26,6 +28,9 @@ function RoutesComponent({isLogin = false}) {
     return (
       <Routes>
         <Route path='/' element={<Dashboard/>}>
+          <Route path='/employees' element={<EmployeesPage/>}>
+
+          </Route>
         </Route>
       </Routes>
     );

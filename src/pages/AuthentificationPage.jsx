@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { axiosContext } from '../../contexts/AxiosContext';
-import { AuthContext } from '../../contexts/AuthContext';
+import { axiosContext } from '../contexts/AxiosContext';
+import { AuthContext } from '../contexts/AuthContext';
 
-import styles from './AuthentificationForm.module.css';
+import styles from '../styles/AuthentificationPage.module.css';
 
-function AuthentificationForm(props) {
+function AuthentificationPage(props) {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
 
@@ -68,4 +68,4 @@ function AuthentificationForm(props) {
     );
 }
 
-export default AuthentificationForm
+export default AuthentificationPage
