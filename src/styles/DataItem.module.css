@@ -1,6 +1,12 @@
 .data_item{
-    margin: 0;
-    padding: 0;
+    margin: 2px 0;
+    border-bottom: 2px solid black;
+    padding: 2px 0;
     display: flex;
+    justify-content: space-between;
+}
+
+.data{
+    display: inline-flex;
     justify-content: space-between;
 }

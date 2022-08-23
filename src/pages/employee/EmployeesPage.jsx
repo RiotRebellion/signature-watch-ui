@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AxiosContext } from "../../contexts/AxiosContext";
 
 import RegistryToolBox from "../../components/RegistyToolBox";
-import DataItem from '../../components/DataItem';
+import TableView from "../../components/TableView";
 
 import styles from '../../styles/Employees.module.css';
 
@@ -10,18 +10,26 @@ import styles from '../../styles/Employees.module.css';
 export default function Employees(){
     const [dataset, setDataset] = useState([]);
 
+    const getData = async () =>{
+        try {
+          const data = await AxiosContext('/employees');
+          setDataset(data);
+          console.log(dataset);
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+
     useEffect(() => {
-        AxiosContext('/employees')
-        .then(response => {
-            console.log(response.data);
-        });
-    });
+        getData();
+        console.log(dataset);
+      }, []);
 
     return(
         <main className={styles.Employees}>
             <h1 className={styles.title}>Сотрудники</h1>
-            <RegistryToolBox></RegistryToolBox>
-            <DataItem></DataItem>
+            <button onClick={getData}>Получить данные</button>
+            <TableView dataset={dataset}/>
         </main>
     );
 }
