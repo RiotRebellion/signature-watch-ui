@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import React from 'react';
+
 import { AxiosContext } from "../../contexts/AxiosContext";
 
 import RegistryToolBox from "../../components/RegistyToolBox";
@@ -6,30 +8,31 @@ import TableView from "../../components/TableView";
 
 import styles from '../../styles/Employees.module.css';
 
-
 export default function Employees(){
-    const [dataset, setDataset] = useState([]);
+    const [headers, setHeaders] = useState();
+    const [dataset, setDataset] = useState();
+    const [isDataLoaded, setIsDataLoaded] = useState(true);
 
-    const getData = async () =>{
-        try {
-          const data = await AxiosContext('/employees');
-          setDataset(data);
-          console.log(dataset);
-        } catch (error) {
-          console.error(error.message);
-        }
-      }
+     function FetchData() {
+      AxiosContext.get('/employees')
+      .then(response => {
+        setDataset(response.data);
+        setIsDataLoaded(true);    
+        console.log(dataset);
+        setHeaders(Object.keys(dataset[0]));    
+      });
+    }
 
     useEffect(() => {
-        getData();
-        console.log(dataset);
-      }, []);
+      FetchData();
+    }, []);
+
+    if (isDataLoaded == false) return null
 
     return(
         <main className={styles.Employees}>
-            <h1 className={styles.title}>Сотрудники</h1>
-            <button onClick={getData}>Получить данные</button>
-            <TableView dataset={dataset}/>
+            <h2 className={styles.title}>Сотрудники</h2>
+            <TableView headers={headers} dataset={dataset} isDataLoaded={isDataLoaded}/>
         </main>
     );
 }

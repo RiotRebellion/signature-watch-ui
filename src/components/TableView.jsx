@@ -1,43 +1,49 @@
+import { render } from '@testing-library/react';
+import { useTable } from 'react-table'; 
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react'
 
-export default function TableView(props) {
-    const [headers, setHeaders] = useState([]);
-    const [data, setData] = useState([]);
+export default function TableView({headers, dataset, isDataLoaded}) {
 
-    const dataAdd = () => {
-        setData(props.dataset);
-        setHeaders(data.headers)
-        console.log(data);
-        console.log(data.headers)
+    const {
+        getTableProps,
+        getTableBodyProps,
+        rows,
+        prepareRow
+    } = useTable{
+        headers,
+        dataset
     }
-    
+
+
+    const renderTableHeader = headers.map(item => 
+            <th>
+                {item}
+            </th>   
+        )
+
+    const renderTableBody = dataset.map(item => 
+        <tr>
+            <td></td>
+        </tr>
+    )      
+
+    if(isDataLoaded)
     return (
-        <table>
-            <button onClick={dataAdd}>Получить</button>
-            {/* <thead>
+        <table {...getTableProps()}>
+            <thead>
                 <tr>
-                    {
-                        headers.map(item => 
-                        {
-                            return<th> {item} </th>
-                        })
-                    };
+                    {renderTableHeader}
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    {
-                        data.map(item =>{
-                            item.map(element => 
-                            {
-                                return <td> {element} </td>
-                            })
-                        })
-                    };
-                </tr>
-            </tbody> */}
+                {renderTableBody}
+            </tbody>
         </table>
-  )
+    )
+    else
+    return (
+        <h3>
+            Данные загружаются...
+        </h3>
+    )
 }
