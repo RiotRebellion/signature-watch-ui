@@ -1,38 +1,56 @@
 import { useState, useEffect } from "react";
-import React from 'react';
-
-import { AxiosContext } from "../../contexts/AxiosContext";
+import { axiosContext } from "../../contexts/axiosContext";
 
 import RegistryToolBox from "../../components/RegistyToolBox";
 import TableView from "../../components/TableView";
 
 import styles from '../../styles/Employees.module.css';
 
-export default function Employees(){
-    const [headers, setHeaders] = useState();
-    const [dataset, setDataset] = useState();
-    const [isDataLoaded, setIsDataLoaded] = useState(true);
 
-     function FetchData() {
-      AxiosContext.get('/employees')
-      .then(response => {
-        setDataset(response.data);
-        setIsDataLoaded(true);    
-        console.log(dataset);
-        setHeaders(Object.keys(dataset[0]));    
-      });
+export default function Employees() {
+    const [headers, setHeaders] = useState([]);
+    const [dataset, setDataset] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchData = async () => {
+        await axiosContext.get('/employees')
+            .then(response => {
+                setLoading(false);
+                console.log(response.data);
+                setDataset(response.data);
+                console.log(dataset)
+                setHeaders(Object.keys(dataset[0]));
+                console.log(headers);
+            })
     }
 
     useEffect(() => {
-      FetchData();
-    }, []);
+        fetchData();
+    }, [loading]);
 
-    if (isDataLoaded == false) return null
-
-    return(
-        <main className={styles.Employees}>
-            <h2 className={styles.title}>Сотрудники</h2>
-            <TableView headers={headers} dataset={dataset} isDataLoaded={isDataLoaded}/>
-        </main>
-    );
+    if (loading == true)
+        return (
+            <main>
+                <h1>Данные загружаются...</h1>
+            </main>
+        )
+    else
+        return (
+            <main className={styles.Employees}>
+                <table>
+                    <thead>
+                        <tr>
+                            {headers.map(item => <th>{item}</th>)}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataset.map(item => {
+                            <tr>
+                                {item}
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
+            </main>
+        );
 }

@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
-import { AuthContext } from "../contexts/AuthContext";
+import { authContext } from "../contexts/authContext";
 
 import styles from '../styles/NavBar.module.css';
 
 function NavBar() {
-    const { logout } = useContext(AuthContext);
+    const { logout } = useContext(authContext);
 
     return (
         <header>
@@ -20,13 +20,13 @@ function NavBar() {
                         <ul className={styles.submenu}>
                             <li>
                                 <NavLink
-                                to='Employees'>
+                                    to='Employees'>
                                     Сотрудники
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
-                                to='Signatures'>
+                                    to='Signatures'>
                                     Электронные подписи
                                 </NavLink>
                             </li>

@@ -2,48 +2,45 @@ import { render } from '@testing-library/react';
 import { useTable } from 'react-table'; 
 import React from 'react'
 
-export default function TableView({headers, dataset, isDataLoaded}) {
+export default function TableView({ headers, dataset }) {
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        rows,
-        prepareRow
-    } = useTable{
-        headers,
-        dataset
+    const renderHeaders = () => {
+        <tr>
+            {
+                headers.map(item => {
+                    return
+                    <th>{item}</th>
+                })
+            }
+        </tr>
     }
 
+    const renderBody = () => {
+        {
+            dataset.forEach(item => {
+                return (
+                    <tr>
+                        {
+                            item.forEach(value => {
+                                return (
+                                    <tr>{value}</tr>
+                                )
+                            })
+                        }
+                    </tr>
+                )
+            })
+        }
+    }
 
-    const renderTableHeader = headers.map(item => 
-            <th>
-                {item}
-            </th>   
-        )
-
-    const renderTableBody = dataset.map(item => 
-        <tr>
-            <td></td>
-        </tr>
-    )      
-
-    if(isDataLoaded)
     return (
-        <table {...getTableProps()}>
+        <table>
             <thead>
-                <tr>
-                    {renderTableHeader}
-                </tr>
+                {renderHeaders}
             </thead>
             <tbody>
-                {renderTableBody}
+
             </tbody>
         </table>
-    )
-    else
-    return (
-        <h3>
-            Данные загружаются...
-        </h3>
     )
 }
