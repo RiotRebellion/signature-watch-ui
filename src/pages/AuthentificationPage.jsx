@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { AxiosContext } from '../contexts/AxiosContext';
-import { AuthContext } from '../contexts/AuthContext';
+import { axiosContext } from '../contexts/axiosContext';
+import { authContext } from '../contexts/authContext';
 
 import styles from '../styles/AuthentificationPage.module.css';
 
@@ -10,25 +10,25 @@ function AuthentificationPage(props) {
 
     const [authenftificationException, setAuthenftificationException] = useState();
 
-    const { login } = useContext(AuthContext);
+    const { login } = useContext(authContext);
 
     async function Authentificate() {
-            await AxiosContext.post('/authentification/login', {username, password},
-            ).then(response => {
-                if(response.data.isSuccess)
-                    login(response.data.token, response.data.username);
-                else
-                    setAuthenftificationException(response.data.errors);
-            }).catch(error => {
-                let validationErrors = error.response.data.errors;
-                console.log(validationErrors);
-                setAuthenftificationException(validationErrors["Username"]);
-            });
+        await axiosContext.post('/authentification/login', { username, password },
+        ).then(response => {
+            if (response.data.isSuccess)
+                login(response.data.token, response.data.username);
+            else
+                setAuthenftificationException(response.data.errors);
+        }).catch(error => {
+            let validationErrors = error.response.data.errors;
+            console.log(validationErrors);
+            setAuthenftificationException(validationErrors["Username"]);
+        });
     };
 
     useEffect(() => {
         setAuthenftificationException('');
-    }, [username] 
+    }, [username]
     )
 
     return (
@@ -44,20 +44,20 @@ function AuthentificationPage(props) {
                 </div>
                 <form onSubmit={e => e.preventDefault()}>
                     <div className={styles.loginInput}>
-                        <input 
+                        <input
                             placeholder='Логин'
-                            type='text' 
-                            onChange={e => setUsername(e.target.value)} />   
+                            type='text'
+                            onChange={e => setUsername(e.target.value)} />
                     </div>
                     <div className={styles.passwordInput}>
-                        <input 
+                        <input
                             placeholder='Пароль'
                             type='password'
                             onChange={e => setPassword(e.target.value)} />
                     </div>
                     <div className={styles.submitButton}>
-                        <button 
-                            type='submit' 
+                        <button
+                            type='submit'
                             onClick={Authentificate}>
                             Авторизоваться
                         </button>

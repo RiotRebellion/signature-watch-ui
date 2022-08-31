@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { AuthContext } from './contexts/AuthContext';
+import { authContext } from './contexts/authContext';
 import { useAuthentification } from './hooks/useAuthentification';
 
 import Dashboard from './components/Dashboard';
@@ -16,11 +16,11 @@ function App() {
 
 
     return (
-        <AuthContext.Provider value={{ login, logout, username, token, status }}>
+        <authContext.Provider value={{ login, logout, username, token, status }}>
             <BrowserRouter>
                 <RoutesComponent isLogin={isLogin} />
             </BrowserRouter>
-        </AuthContext.Provider>
+        </authContext.Provider>
     );
 }
 
