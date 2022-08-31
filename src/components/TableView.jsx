@@ -1,43 +1,44 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react'
 
-export default function TableView(props) {
-    const [headers, setHeaders] = useState([]);
-    const [data, setData] = useState([]);
+export default function TableView({ headers, dataset }) {
 
-    const dataAdd = () => {
-        setData(props.dataset);
-        setHeaders(data.headers)
-        console.log(data);
-        console.log(data.headers)
+    const renderHeaders = () => {
+        <tr>
+            {
+                headers.map(item => {
+                    return
+                    <th>{item}</th>
+                })
+            }
+        </tr>
     }
-    
+
+    const renderBody = () => {
+        {
+            dataset.forEach(item => {
+                return (
+                    <tr>
+                        {
+                            item.forEach(value => {
+                                return (
+                                    <tr>{value}</tr>
+                                )
+                            })
+                        }
+                    </tr>
+                )
+            })
+        }
+    }
+
     return (
         <table>
-            <button onClick={dataAdd}>Получить</button>
-            {/* <thead>
-                <tr>
-                    {
-                        headers.map(item => 
-                        {
-                            return<th> {item} </th>
-                        })
-                    };
-                </tr>
+            <thead>
+                {renderHeaders}
             </thead>
             <tbody>
-                <tr>
-                    {
-                        data.map(item =>{
-                            item.map(element => 
-                            {
-                                return <td> {element} </td>
-                            })
-                        })
-                    };
-                </tr>
-            </tbody> */}
+
+            </tbody>
         </table>
-  )
+    )
 }

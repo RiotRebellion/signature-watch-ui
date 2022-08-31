@@ -7,29 +7,38 @@ import TableView from "../../components/TableView";
 import styles from '../../styles/Employees.module.css';
 
 
-export default function Employees(){
-    const [dataset, setDataset] = useState([]);
+export default function Employees() {
+    const [headers, setHeaders] = useState(null);
+    const [dataset, setDataset] = useState(null);
 
-    const getData = async () =>{
-        try {
-          const data = await AxiosContext('/employees');
-          setDataset(data);
-          console.log(dataset);
-        } catch (error) {
-          console.error(error.message);
-        }
-      }
+    const fetchData = async () => {
+        await AxiosContext.get('/employees')
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response.data);
+                    setDataset(response.data);
+                    console.log(dataset)
+                    setHeaders(Object.keys(dataset[0]));
+                    console.log(headers);
+                }
+            })
+    }
 
     useEffect(() => {
-        getData();
-        console.log(dataset);
-      }, []);
+        fetchData();
+    }, []);
 
-    return(
-        <main className={styles.Employees}>
-            <h1 className={styles.title}>Сотрудники</h1>
-            <button onClick={getData}>Получить данные</button>
-            <TableView dataset={dataset}/>
-        </main>
-    );
+    if (!dataset)
+        return (
+            <main>
+                <h1>Данные загружаются...</h1>
+            </main>
+        )
+    else
+        return (
+            <main className={styles.Employees}>
+                <h1 className={styles.title}>Сотрудники</h1>
+                <TableView headers={headers} dataset={dataset} />
+            </main>
+        );
 }
