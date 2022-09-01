@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { axiosContext } from "../../contexts/axiosContext";
 
 import RegistryToolBox from "../../components/RegistyToolBox";
-import TableView from "../../components/TableView";
 
 import styles from '../../styles/Employees.module.css';
 
@@ -16,11 +15,8 @@ export default function Employees() {
         await axiosContext.get('/employees')
             .then(response => {
                 setLoading(false);
-                console.log(response.data);
                 setDataset(response.data);
-                console.log(dataset)
                 setHeaders(Object.keys(dataset[0]));
-                console.log(headers);
             })
     }
 
@@ -46,7 +42,7 @@ export default function Employees() {
                     <tbody>
                         {dataset.map(item => {
                             <tr>
-                                {item}
+                                {item.map(value => <td>{value}</td>)}
                             </tr>
                         })}
                     </tbody>

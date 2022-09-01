@@ -8,7 +8,7 @@ function useAuthentification() {
     const login = useCallback((jwtToken, username) => {
         setToken(jwtToken);
         setUsername(username);
-        ApplyToken(jwtToken);
+        applyToken(jwtToken);
         localStorage.setItem('signaturewatch', JSON.stringify({
             username: username,
             token: jwtToken
