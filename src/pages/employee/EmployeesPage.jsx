@@ -7,16 +7,15 @@ import styles from '../../styles/Employees.module.css';
 
 
 export default function Employees() {
-    const [headers, setHeaders] = useState([]);
-    const [dataset, setDataset] = useState([]);
+    const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
         await axiosContext.get('/employees')
             .then(response => {
                 setLoading(false);
-                setDataset(response.data);
-                setHeaders(Object.keys(dataset[0]));
+                setEmployees(response.data);
+                console.log(employees);
             })
     }
 
@@ -32,21 +31,36 @@ export default function Employees() {
         )
     else
         return (
-            <main className={styles.Employees}>
-                <table>
-                    <thead>
-                        <tr>
-                            {headers.map(item => <th>{item}</th>)}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dataset.map(item => {
-                            <tr>
-                                {item.map(value => <td>{value}</td>)}
-                            </tr>
-                        })}
-                    </tbody>
-                </table>
+            <main className={styles.employees}>
+                <h2>Сотрудники</h2>
+                <div className={styles.toolbox}>
+                    <div>#toolbox</div>
+                </div> 
+                <div className={styles.data_container}>
+                    <div className={styles.data_header}>
+                        <div>ФИО</div>
+                        <div>Должность</div>
+                        <div>Отдел</div>
+                        <div>Статус</div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                {
+                    employees.map(employee => {
+                        return(
+                            <div className={styles.data_row} key={employee.guid}>
+                                <div>{employee.name}</div>
+                                <div>{employee.post}</div>
+                                <div>{employee.department}</div>
+                                <div>{employee.employeeStatus}</div>
+                                <div>
+                                    
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                </div>
             </main>
         );
 }
