@@ -8,7 +8,7 @@ export const axiosContext = axios.create({
     }
 })
 
-export const ApplyToken = (token) => {
+export const applyToken = (token) => {
     let auth = `Bearer ${token}`;
     axiosContext.defaults.headers.common['Authorization'] = auth;
 }

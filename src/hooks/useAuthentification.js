@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { ApplyToken } from '../contexts/axiosContext';
+import { applyToken } from '../contexts/axiosContext';
 
 function useAuthentification() {
     const [username, setUsername] = useState('');
@@ -26,7 +26,7 @@ function useAuthentification() {
         const data = JSON.parse(localStorage.getItem('signaturewatch'));
         if (data && data.token) {
             login(data.token, data.username)
-            ApplyToken(data.token);
+            applyToken(data.token);
         }
     }, [login]);
 
