@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { IconButton } from "@mui/material";
 
 import { authContext } from "../contexts/authContext";
 
@@ -38,11 +39,21 @@ function NavBar() {
                             <li>sas</li>
                         </ul>
                     </li>
+                    <li>
+                        <NavLink to='/admin'>
+                            <div className={styles.menuItem}>
+                                Администрирование
+                            </div>
+                        </NavLink>
+                    </li>
                 </ul>
+                <div className={styles.user_profile}>
+                    <p>Иванов Ивановна</p>
+                </div>
                 <div className={styles.logout}>
                     <NavLink to='/' onClick={logout}>
                         <button className={styles.logoutButton}>Выход</button>
-                    </NavLink>
+                    </NavLink>                        
                 </div>
             </nav>
         </header>
