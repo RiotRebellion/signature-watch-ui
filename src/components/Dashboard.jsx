@@ -1,15 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import NavBar from './NavBar';
+import NavBar from "./NavBar";
 
 function Dashboard() {
-    return (
-        <>
-            <NavBar/>
-            <Outlet/>
-        </>
-    );
+	return (
+		<>
+			<NavBar />
+			<Outlet />
+		</>
+	);
 }
 
 export default Dashboard;
