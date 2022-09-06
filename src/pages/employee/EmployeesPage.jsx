@@ -5,13 +5,16 @@ import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
 
 import styles from "../../styles/Employees.module.css";
+import { Api } from "@mui/icons-material";
 
 export default function Employees() {
+	const api = "/employees";
+
 	const [employees, setEmployees] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	const fetchData = async () => {
-		await axiosContext.get("/employees").then((response) => {
+		await axiosContext.get(api).then((response) => {
 			setLoading(false);
 			setEmployees(response.data);
 			console.log(employees);
@@ -54,7 +57,7 @@ export default function Employees() {
 								<div>{employee.department}</div>
 								<div>{employee.employeeStatus}</div>
 								<div>
-									<ItemToolBar />
+									<ItemToolBar api={api} id={employee.guid} />
 								</div>
 							</div>
 						);
