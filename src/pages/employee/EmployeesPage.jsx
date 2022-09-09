@@ -5,16 +5,15 @@ import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
 
 import styles from "../../styles/Employees.module.css";
-import { Api } from "@mui/icons-material";
+import { EMPLOYEES } from "../../API/api";
+import { EmployeeStatusIntToStringConverter } from "../../common/Converters/EmployeeStatusConverter";
 
 export default function Employees() {
-	const api = "/employees";
-
 	const [employees, setEmployees] = useState([]);
 	const [loading, setLoading] = useState(true);
 
-	const fetchData = async () => {
-		await axiosContext.get(api).then((response) => {
+	const fetchData = () => {
+		axiosContext.get(EMPLOYEES).then((response) => {
 			setLoading(false);
 			setEmployees(response.data);
 			console.log(employees);
@@ -23,46 +22,43 @@ export default function Employees() {
 
 	useEffect(() => {
 		fetchData();
-	}, [loading]);
+	}, []);
 
-	if (loading == true)
-		return (
-			<main>
-				<h1>Данные загружаются...</h1>
-			</main>
-		);
-	else
-		return (
-			<main className={styles.employees}>
-				<h2>Сотрудники</h2>
-				<div className={styles.toolbox}>
-					<PageToolBox />
+	return (
+		<main className={styles.employees}>
+			<h2>Сотрудники</h2>
+			<div className={styles.toolbox}>
+				<PageToolBox />
+			</div>
+			<div className={styles.data_container}>
+				<div className={styles.data_header}>
+					<div>ФИО</div>
+					<div>Должность</div>
+					<div>Отдел</div>
+					<div>Статус</div>
+					<div></div>
 				</div>
-				<div className={styles.data_container}>
-					<div className={styles.data_header}>
-						<div>ФИО</div>
-						<div>Должность</div>
-						<div>Отдел</div>
-						<div>Статус</div>
-						<div></div>
-					</div>
-					{employees.map((employee) => {
-						return (
-							<div
-								className={styles.data_row}
-								key={employee.guid}
-							>
-								<div>{employee.name}</div>
-								<div>{employee.post}</div>
-								<div>{employee.department}</div>
-								<div>{employee.employeeStatus}</div>
-								<div>
-									<ItemToolBar api={api} id={employee.guid} />
-								</div>
+				{employees.map((employee) => {
+					return (
+						<div className={styles.data_row} key={employee.guid}>
+							<div>{employee.name}</div>
+							<div>{employee.post}</div>
+							<div>{employee.department}</div>
+							<div>
+								{EmployeeStatusIntToStringConverter(
+									employee.employeeStatus
+								)}
 							</div>
-						);
-					})}
-				</div>
-			</main>
-		);
+							<div>
+								<ItemToolBar
+									api={EMPLOYEES}
+									id={employee.guid}
+								/>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		</main>
+	);
 }
