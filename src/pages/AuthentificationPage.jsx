@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { axiosContext } from "../contexts/axiosContext";
 import { authContext } from "../contexts/authContext";
+import { LOGIN } from "../constants/api";
 
 import styles from "../styles/AuthentificationPage.module.css";
 
@@ -15,7 +16,7 @@ function AuthentificationPage(props) {
 
 	async function Authentificate() {
 		await axiosContext
-			.post("/authentification/login", { username, password })
+			.post(LOGIN, { username, password })
 			.then((response) => {
 				if (response.data.isSuccess)
 					login(response.data.token, response.data.username);

@@ -4,25 +4,20 @@ import { axiosContext } from "../../contexts/axiosContext";
 import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
 
-import styles from "../../styles/Employees.module.css";
-import { EMPLOYEES } from "../../API/api";
+import { EMPLOYEES } from "../../constants/api";
 import { EmployeeStatusIntToStringConverter } from "../../common/Converters/EmployeeStatusConverter";
+import DetailedEmployeeModal from "./DetailedEmployeeModal";
+import { CREATE, EDIT } from "../../constants/detailedModalMode";
+
+import styles from "../../styles/Employees.module.css";
+import useData from "../../hooks/useData";
 
 export default function Employees() {
-	const [employees, setEmployees] = useState([]);
-	const [loading, setLoading] = useState(true);
+	const { data, getAll, deleteItem } = useData();
 
-	const fetchData = () => {
-		axiosContext.get(EMPLOYEES).then((response) => {
-			setLoading(false);
-			setEmployees(response.data);
-			console.log(employees);
-		});
-	};
+	const [modalVisibility, setModalVisibility] = useState();
 
-	useEffect(() => {
-		fetchData();
-	}, []);
+	useEffect(() => getAll(EMPLOYEES), []);
 
 	return (
 		<main className={styles.employees}>
@@ -38,7 +33,7 @@ export default function Employees() {
 					<div>Статус</div>
 					<div></div>
 				</div>
-				{employees.map((employee) => {
+				{data.map((employee) => {
 					return (
 						<div className={styles.data_row} key={employee.guid}>
 							<div>{employee.name}</div>
@@ -51,14 +46,17 @@ export default function Employees() {
 							</div>
 							<div>
 								<ItemToolBar
-									api={EMPLOYEES}
-									id={employee.guid}
+									editHandler={(e) => {}}
+									deleteHandler={(e) =>
+										deleteItem(employee.guid)
+									}
 								/>
 							</div>
 						</div>
 					);
 				})}
 			</div>
+			{/* <DetailedEmployeeModal /> */}
 		</main>
 	);
 }
