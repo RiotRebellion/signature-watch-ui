@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { axiosContext } from "../../contexts/axiosContext";
 
 import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
@@ -13,17 +12,30 @@ import styles from "../../styles/Employees.module.css";
 import useData from "../../hooks/useData";
 
 export default function Employees() {
-	const { data, getAll, deleteItem } = useData();
+	const { data, dataItem, cleanDataItem, getAll, getById, deleteItem } =
+		useData();
 
 	const [modalVisibility, setModalVisibility] = useState();
+	const [modalMode, setModalMode] = useState();
 
 	useEffect(() => getAll(EMPLOYEES), []);
+
+	const openCreateForm = () => {
+		setModalMode(CREATE);
+		setModalVisibility(true);
+	};
+
+	const openEditForm = (id) => {
+		getById(EMPLOYEES, id);
+		setModalMode(EDIT);
+		setModalVisibility(true);
+	};
 
 	return (
 		<main className={styles.employees}>
 			<h2>Сотрудники</h2>
 			<div className={styles.toolbox}>
-				<PageToolBox />
+				<PageToolBox createHandler={openCreateForm} />
 			</div>
 			<div className={styles.data_container}>
 				<div className={styles.data_header}>
@@ -46,9 +58,11 @@ export default function Employees() {
 							</div>
 							<div>
 								<ItemToolBar
-									editHandler={(e) => {}}
+									editHandler={(e) => {
+										openEditForm(employee.guid);
+									}}
 									deleteHandler={(e) =>
-										deleteItem(employee.guid)
+										deleteItem(EMPLOYEES, employee.guid)
 									}
 								/>
 							</div>
@@ -56,7 +70,15 @@ export default function Employees() {
 					);
 				})}
 			</div>
-			{/* <DetailedEmployeeModal /> */}
+			{modalVisibility ? (
+				<DetailedEmployeeModal
+					modalMode={modalMode}
+					modalVisibility={modalVisibility}
+					setModalVisibility={setModalVisibility}
+					dataItem={dataItem}
+					cleanDataItem={cleanDataItem}
+				/>
+			) : null}
 		</main>
 	);
 }

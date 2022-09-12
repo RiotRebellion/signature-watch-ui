@@ -4,10 +4,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 import styles from "../styles/PageToolBox.module.css";
 
-export default function PageToolBox(props) {
+export default function PageToolBox({ createHandler }) {
 	return (
 		<div className={styles.toolBox}>
-			<IconButton>
+			<IconButton onClick={createHandler}>
 				<AddIcon />
 			</IconButton>
 		</div>

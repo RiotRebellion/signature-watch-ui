@@ -1,3 +1,3 @@
-export const EDIT = 'edit';
+export const EDIT = 'Изменить';
 
-export const CREATE = 'create';
+export const CREATE = 'Создать';

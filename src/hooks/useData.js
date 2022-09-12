@@ -3,7 +3,10 @@ import { axiosContext } from "../contexts/axiosContext";
 
 export default function useData() {
 	const [data, setData] = useState([]);
-
+	const [dataItem, setDataItem] = useState({})
+	const [id, setId] = useState('');
+	
+	const cleanDataItem = () => setDataItem({});	
 	const getAll = (api) => {
 		axiosContext
 			.get(api)
@@ -13,11 +16,14 @@ export default function useData() {
 	};
 
 	const getById = (api, id) => {
-		axiosContext.get(`${api}/${id}`);
+		 axiosContext
+			.get(`${api}/${id}`)
+			.then((response) => setDataItem(response.data))
+			.catch((error) => console.log(error.toJSON()));
 	};
 
-	const createItem = async (api, id, item) => {
-		axiosContext
+	const createItem = async (api, item) => {
+		await axiosContext
 			.post(`${api}/${id}`, item)
 			.then(() => getAll(api))
 			.then(() => console.log("success"))
@@ -25,7 +31,7 @@ export default function useData() {
 	};
 
 	const updateItem = async (api, id, item) => {
-		axiosContext
+		await axiosContext
 			.put(`${api}/${id}`, item)
 			.then(() => getAll(api))
 			.then(() => console.log("success"))
@@ -33,12 +39,23 @@ export default function useData() {
 	};
 
 	const deleteItem = async (api, id) => {
-		axiosContext
+		await axiosContext
 			.delete(`${api}/${id}`)
 			.then(() => getAll(api))
 			.then(() => console.log("success"))
 			.catch((error) => console.log(error));
 	};
 
-	return { data, getAll, getById, createItem, updateItem, deleteItem };
+	return {
+		data,
+		dataItem,
+		id,
+		cleanDataItem,
+		setId,
+		getAll,
+		getById,
+		createItem,
+		updateItem,
+		deleteItem,
+	};
 }
