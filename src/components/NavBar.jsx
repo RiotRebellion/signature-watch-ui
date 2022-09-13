@@ -7,7 +7,7 @@ import { authContext } from "../contexts/authContext";
 import styles from "../styles/NavBar.module.css";
 
 function NavBar() {
-	const { logout } = useContext(authContext);
+	const { username, logout } = useContext(authContext);
 
 	return (
 		<header>
@@ -44,7 +44,7 @@ function NavBar() {
 					</li>
 				</ul>
 				<div className={styles.user_profile}>
-					<p>Иванов Ивановна</p>
+					<p>{username}</p>
 				</div>
 				<div className={styles.logout}>
 					<NavLink to="/" onClick={logout}>

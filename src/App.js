@@ -12,12 +12,12 @@ import EmployeesPage from './pages/employee/EmployeesPage';
 import SignaturesPage from "./pages/signature/SignaturesPage";
 
 function App() {
-    const { login, logout, username, token, status } = useAuthentification();
+    const { login, logout, username, token } = useAuthentification();
     const isLogin = !!token;
 
 
     return (
-        <authContext.Provider value={{ login, logout, username, token, status }}>
+        <authContext.Provider value={{ login, logout, username, token }}>
             <BrowserRouter>
                 <RoutesComponent isLogin={isLogin} />
             </BrowserRouter>

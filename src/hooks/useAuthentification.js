@@ -25,8 +25,7 @@ function useAuthentification() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('signaturewatch'));
         if (data && data.token) {
-            login(data.token, data.username)
-            applyToken(data.token);
+            login(data.token, data.username);
         }
     }, [login]);
 
