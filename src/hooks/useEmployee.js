@@ -4,14 +4,13 @@ export default function useEmployee() {
 	const [name, setName] = useState("");
 	const [department, setDepartment] = useState("");
 	const [post, setPost] = useState("");
-	const [status, setStatus] = useState("");
+	const [employeeStatus, setEmployeeStatus] = useState(0);
 
 	const parseResponse = (response) => {
 		setName(response.name);
 		setDepartment(response.department);
 		setPost(response.post);
-		setStatus(response.status);
-		console.log("sas");
+		setEmployeeStatus(response.status);
 	};
 
 	const createRequestBody = () => {
@@ -19,7 +18,7 @@ export default function useEmployee() {
 			name: name,
 			department: department,
 			post: post,
-			status: status,
+			employeeStatus: employeeStatus,
 		};
 	};
 	return {
@@ -29,8 +28,8 @@ export default function useEmployee() {
 		setDepartment,
 		post,
 		setPost,
-		status,
-		setStatus,
+		employeeStatus,
+		setEmployeeStatus,
 		parseResponse,
 		createRequestBody,
 	};

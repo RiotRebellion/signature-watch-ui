@@ -1,34 +1,43 @@
-import { useState, useEffect } from "react";
-
-import PageToolBox from "../../components/PageToolBox";
-import ItemToolBar from "../../components/ItemToolBar";
-
+import { useEffect } from "react";
 import { EMPLOYEES } from "../../constants/api";
 import { EmployeeStatusIntToStringConverter } from "../../common/Converters/EmployeeStatusConverter";
 import DetailedEmployeeModal from "./DetailedEmployeeModal";
 import { CREATE, EDIT } from "../../constants/detailedModalMode";
+import useData from "../../hooks/useData";
+import useModalProperty from "../../hooks/useModalProperty";
+
+import PageToolBox from "../../components/PageToolBox";
+import ItemToolBar from "../../components/ItemToolBar";
 
 import styles from "../../styles/Employees.module.css";
-import useData from "../../hooks/useData";
 
 export default function Employees() {
-	const { data, dataItem, cleanDataItem, getAll, getById, deleteItem } =
-		useData();
+	const {
+		data,
+		dataItem,
+		cleanDataItem,
+		getAll,
+		getById,
+		createItem,
+		updateItem,
+		deleteItem,
+	} = useData();
 
-	const [modalVisibility, setModalVisibility] = useState();
-	const [modalMode, setModalMode] = useState();
+	const modalProperty = useModalProperty();
 
-	useEffect(() => getAll(EMPLOYEES), []);
+	useEffect(() => {
+		getAll(EMPLOYEES);
+	}, [dataItem]);
 
 	const openCreateForm = () => {
-		setModalMode(CREATE);
-		setModalVisibility(true);
+		modalProperty.setModalMode(CREATE);
+		modalProperty.setModalVisibility(true);
 	};
 
 	const openEditForm = (id) => {
 		getById(EMPLOYEES, id);
-		setModalMode(EDIT);
-		setModalVisibility(true);
+		modalProperty.setModalMode(EDIT);
+		modalProperty.setModalVisibility(true);
 	};
 
 	return (
@@ -70,12 +79,12 @@ export default function Employees() {
 					);
 				})}
 			</div>
-			{modalVisibility ? (
+			{modalProperty.modalVisibility ? (
 				<DetailedEmployeeModal
-					modalMode={modalMode}
-					modalVisibility={modalVisibility}
-					setModalVisibility={setModalVisibility}
+					modalProperty={modalProperty}
 					dataItem={dataItem}
+					createEmployeeHandler={createItem}
+					updateEmployeeHandler={updateItem}
 					cleanDataItem={cleanDataItem}
 				/>
 			) : null}

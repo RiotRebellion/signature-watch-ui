@@ -4,7 +4,6 @@ import { axiosContext } from "../contexts/axiosContext";
 export default function useData() {
 	const [data, setData] = useState([]);
 	const [dataItem, setDataItem] = useState({})
-	const [id, setId] = useState('');
 	
 	const cleanDataItem = () => setDataItem({});	
 	const getAll = (api) => {
@@ -24,8 +23,7 @@ export default function useData() {
 
 	const createItem = async (api, item) => {
 		await axiosContext
-			.post(`${api}/${id}`, item)
-			.then(() => getAll(api))
+			.post(`${api}`, item)
 			.then(() => console.log("success"))
 			.catch((error) => console.log(error));
 	};
@@ -33,7 +31,6 @@ export default function useData() {
 	const updateItem = async (api, id, item) => {
 		await axiosContext
 			.put(`${api}/${id}`, item)
-			.then(() => getAll(api))
 			.then(() => console.log("success"))
 			.catch((error) => console.log(error));
 	};
@@ -49,9 +46,7 @@ export default function useData() {
 	return {
 		data,
 		dataItem,
-		id,
 		cleanDataItem,
-		setId,
 		getAll,
 		getById,
 		createItem,
