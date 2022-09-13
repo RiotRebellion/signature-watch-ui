@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import { EMPLOYEES } from "../../constants/api";
-import { EmployeeStatusIntToStringConverter } from "../../common/Converters/EmployeeStatusConverter";
+import { SIGNATURES } from "../../constants/api";
+import { SignatureTypeIntToStringConverter } from "../../common/Converters/SignatureTypeConverter";
 import { CREATE, EDIT } from "../../constants/detailedModalMode";
 import useData from "../../hooks/useData";
 import useModalProperty from "../../hooks/useModalProperty";
 
 import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
-import DetailedEmployeeModal from "./DetailedEmployeeModal";
+import DetailedSignatureModal from "./DetailedSignatureModal";
 
 import styles from "../../styles/Employees.module.css";
+import { ConvertDateTimeToShortDate } from "../../common/Converters/DateConverter";
 
-export default function EmployeesPage() {
+export default function SignaturesPage() {
 	const {
 		data,
 		dataItem,
@@ -26,7 +27,7 @@ export default function EmployeesPage() {
 	const modalProperty = useModalProperty();
 
 	useEffect(() => {
-		getAll(EMPLOYEES);
+		getAll(SIGNATURES);
 	}, [dataItem]);
 
 	const openCreateForm = () => {
@@ -35,7 +36,7 @@ export default function EmployeesPage() {
 	};
 
 	const openEditForm = (id) => {
-		getById(EMPLOYEES, id);
+		getById(SIGNATURES, id);
 		modalProperty.setModalMode(EDIT);
 		modalProperty.setModalVisibility(true);
 	};
@@ -48,30 +49,48 @@ export default function EmployeesPage() {
 			</div>
 			<div className={styles.data_container}>
 				<div className={styles.data_header}>
-					<div>ФИО</div>
-					<div>Должность</div>
-					<div>Отдел</div>
-					<div>Статус</div>
+					<div>Серийный номер</div>
+					<div>Дата начала публичного ключа</div>
+					<div>Дата окончания публичного ключа</div>
+					<div>Дата начала приватного ключа</div>
+					<div>Дата окончания приватного ключа</div>
+					<div>Тип подписи</div>
+					<div>Владелец</div>
 					<div></div>
 				</div>
-				{data.map((employee) => {
+				{data.map((signature) => {
 					return (
-						<div className={styles.data_row} key={employee.guid}>
-							<div>{employee.name}</div>
-							<div>{employee.post}</div>
-							<div>{employee.department}</div>
+						<div className={styles.data_row} key={signature.guid}>
+							<div>{signature.serialNumber}</div>
 							<div>
-								{EmployeeStatusIntToStringConverter(
-									employee.employeeStatus
+								{ConvertDateTimeToShortDate(
+									signature.publicKeyStartDate
 								)}
 							</div>
 							<div>
+								{ConvertDateTimeToShortDate(
+									signature.publicKeyEndDate
+								)}
+							</div>
+							<div>
+								{ConvertDateTimeToShortDate(
+									signature.privateKeyStartDate
+								)}
+							</div>
+							<div>
+								{ConvertDateTimeToShortDate(
+									signature.privateKeyEndDate
+								)}
+							</div>
+							<div>{signature.signatureType}</div>
+							<div>{signature.employeeName}</div>
+							<div>
 								<ItemToolBar
 									editHandler={(e) => {
-										openEditForm(employee.guid);
+										openEditForm(signature.guid);
 									}}
 									deleteHandler={(e) =>
-										deleteItem(EMPLOYEES, employee.guid)
+										deleteItem(SIGNATURES, signature.guid)
 									}
 								/>
 							</div>
@@ -80,7 +99,7 @@ export default function EmployeesPage() {
 				})}
 			</div>
 			{modalProperty.modalVisibility ? (
-				<DetailedEmployeeModal
+				<DetailedSignatureModal
 					modalProperty={modalProperty}
 					dataItem={dataItem}
 					createEmployeeHandler={createItem}

@@ -9,6 +9,7 @@ import Dashboard from './components/Dashboard';
 import AuthentificationForm from './pages/AuthentificationPage';
 import { NotFound } from './pages/NotFound';
 import EmployeesPage from './pages/employee/EmployeesPage';
+import SignaturesPage from "./pages/signature/SignaturesPage";
 
 function App() {
     const { login, logout, username, token, status } = useAuthentification();
@@ -29,9 +30,8 @@ function RoutesComponent({ isLogin = false }) {
         return (
             <Routes>
                 <Route path='/' element={<Dashboard />}>
-                    <Route path='/employees' element={<EmployeesPage />}>
-
-                    </Route>
+                    <Route path='/employees' element={<EmployeesPage />}/>
+                    <Route path='/signatures' element={<SignaturesPage/>}/>
                     <Route path='*' element={<NotFound />} />
                 </Route>
             </Routes>
