@@ -4,13 +4,13 @@ export default function useEmployee() {
 	const [name, setName] = useState("");
 	const [department, setDepartment] = useState("");
 	const [post, setPost] = useState("");
-	const [employeeStatus, setEmployeeStatus] = useState(0);
+	const [employeeStatus, setEmployeeStatus] = useState(2);
 
 	const parseResponse = (response) => {
 		setName(response.name);
 		setDepartment(response.department);
 		setPost(response.post);
-		setEmployeeStatus(response.status);
+		setEmployeeStatus(response.employeeStatus);
 	};
 
 	const createRequestBody = () => {
@@ -18,7 +18,7 @@ export default function useEmployee() {
 			name: name,
 			department: department,
 			post: post,
-			employeeStatus: employeeStatus,
+			employeeStatus: Number(employeeStatus),
 		};
 	};
 	return {

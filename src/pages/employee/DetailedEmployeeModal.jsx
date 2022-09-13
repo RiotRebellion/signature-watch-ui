@@ -1,5 +1,6 @@
-import { Modal } from "@mui/material";
+import { MenuItem, Modal } from "@mui/material";
 import React, { useEffect } from "react";
+import Select from "react-select";
 import { EMPLOYEES } from "../../constants/api";
 import { CREATE, EDIT } from "../../constants/detailedModalMode";
 import useEmployee from "../../hooks/useEmployee";
@@ -14,6 +15,11 @@ export default function DetailedEmployeeModal({
 	cleanDataItem,
 }) {
 	{
+		const options = [
+			{ value: 0, label: "Работает" },
+			{ value: 1, label: "Уволен" },
+		];
+
 		const {
 			name,
 			setName,
@@ -58,8 +64,9 @@ export default function DetailedEmployeeModal({
 				<Modal
 					open={modalProperty.modalVisibility}
 					onClose={handleClose}
+					aria-describedby="body"
 				>
-					<div className={styles.modal_box}>
+					<div id="body" className={styles.modal_box}>
 						<form onSubmit={(e) => e.preventDefault()}>
 							<div>
 								<label>Фио</label>
@@ -95,17 +102,18 @@ export default function DetailedEmployeeModal({
 							</div>
 							<div>
 								<label>Статус</label>
-								<input
-									placeholder="Статус"
-									type="text"
-									value={employeeStatus}
-									onChange={(e) =>
-										setEmployeeStatus(e.target.value)
+								<Select
+									options={options}
+									value={options.find(
+										(c) => c.value === employeeStatus
+									)}
+									onChange={(val) =>
+										setEmployeeStatus(val.value)
 									}
-								/>
+								></Select>
 								<p className={styles.exception}></p>
 							</div>
-							<div>
+							<div className={styles.buttons}>
 								<button onClick={(e) => handleClose()}>
 									Отмена
 								</button>
