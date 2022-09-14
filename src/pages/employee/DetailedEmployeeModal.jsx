@@ -15,7 +15,7 @@ export default function DetailedEmployeeModal({
 	cleanDataItem,
 }) {
 	{
-		const options = [
+		const employeeStatusOptions = [
 			{ value: 0, label: "Работает" },
 			{ value: 1, label: "Уволен" },
 		];
@@ -50,6 +50,8 @@ export default function DetailedEmployeeModal({
 						break;
 					case EDIT:
 						updateEmployeeHandler(EMPLOYEES, dataItem.guid, body);
+						break;
+					default:
 						break;
 				}
 				cleanDataItem();
@@ -103,14 +105,14 @@ export default function DetailedEmployeeModal({
 							<div>
 								<label>Статус</label>
 								<Select
-									options={options}
-									value={options.find(
+									options={employeeStatusOptions}
+									value={employeeStatusOptions.find(
 										(c) => c.value === employeeStatus
 									)}
 									onChange={(val) =>
 										setEmployeeStatus(val.value)
 									}
-								></Select>
+								/>
 								<p className={styles.exception}></p>
 							</div>
 							<div className={styles.buttons}>

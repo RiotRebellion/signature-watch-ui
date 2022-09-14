@@ -9,7 +9,7 @@ import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
 import DetailedEmployeeModal from "./DetailedEmployeeModal";
 
-import styles from "../../styles/Employees.module.css";
+import styles from "../../styles/dataContent.module.css";
 
 export default function EmployeesPage() {
 	const {
@@ -41,7 +41,7 @@ export default function EmployeesPage() {
 	};
 
 	return (
-		<main className={styles.employees}>
+		<main className={styles.content}>
 			<h2>Сотрудники</h2>
 			<div className={styles.toolbox}>
 				<PageToolBox createHandler={openCreateForm} />

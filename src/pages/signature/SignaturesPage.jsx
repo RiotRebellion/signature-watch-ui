@@ -9,7 +9,7 @@ import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
 import DetailedSignatureModal from "./DetailedSignatureModal";
 
-import styles from "../../styles/Employees.module.css";
+import styles from "../../styles/dataContent.module.css";
 import { ConvertDateTimeToShortDate } from "../../common/Converters/DateConverter";
 
 export default function SignaturesPage() {
@@ -42,8 +42,8 @@ export default function SignaturesPage() {
 	};
 
 	return (
-		<main className={styles.employees}>
-			<h2>Сотрудники</h2>
+		<main className={styles.content}>
+			<h2>Электронные подписи</h2>
 			<div className={styles.toolbox}>
 				<PageToolBox createHandler={openCreateForm} />
 			</div>

@@ -1,11 +1,14 @@
-import { MenuItem, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import React, { useEffect } from "react";
 import Select from "react-select";
-import { EMPLOYEES } from "../../constants/api";
+import DatePicker from "react-datepicker";
+import { SIGNATURES, EMPLOYEES } from "../../constants/api";
 import { CREATE, EDIT } from "../../constants/detailedModalMode";
-import useEmployee from "../../hooks/useEmployee";
+import useSignature from "../../hooks/useSignature";
+import useData from "../../hooks/useData";
 
 import styles from "../../styles/Modal.module.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function DetailedSignatureModal({
 	modalProperty,
@@ -15,26 +18,38 @@ export default function DetailedSignatureModal({
 	cleanDataItem,
 }) {
 	{
-		const options = [
-			{ value: 0, label: "Работает" },
-			{ value: 1, label: "Уволен" },
+		let { data, getAll } = useData();
+		const employeeOptions = data.map((item) => {
+			return { value: item.guid, label: item.name };
+		});
+
+		const signatureTypeOptions = [
+			{ value: 0, label: "Физическая" },
+			{ value: 1, label: "Юридическая" },
 		];
 
 		const {
-			name,
-			setName,
-			department,
-			setDepartment,
-			post,
-			setPost,
-			employeeStatus,
-			setEmployeeStatus,
+			serialNumber,
+			setSerialNumber,
+			publicKeyStartDate,
+			setPublicKeyStartDate,
+			publicKeyEndDate,
+			setPublicKeyEndDate,
+			privateKeyStartDate,
+			setPrivateKeyStartDate,
+			privateKeyEndDate,
+			setPrivateKeyEndDate,
+			signatureType,
+			setSignatureType,
+			ownerGuid,
+			setOwnerGuid,
 			parseResponse,
 			createRequestBody,
-		} = useEmployee();
+		} = useSignature();
 
 		useEffect(() => {
 			parseResponse(dataItem);
+			getAll(EMPLOYEES);
 		}, [dataItem]);
 
 		const handleClose = () => {
@@ -46,10 +61,12 @@ export default function DetailedSignatureModal({
 				let body = createRequestBody();
 				switch (modalProperty.modalMode) {
 					case CREATE:
-						createEmployeeHandler(EMPLOYEES, body);
+						createEmployeeHandler(SIGNATURES, body);
 						break;
 					case EDIT:
-						updateEmployeeHandler(EMPLOYEES, dataItem.guid, body);
+						updateEmployeeHandler(SIGNATURES, dataItem.guid, body);
+						break;
+					default:
 						break;
 				}
 				cleanDataItem();
@@ -69,48 +86,78 @@ export default function DetailedSignatureModal({
 					<div id="body" className={styles.modal_box}>
 						<form onSubmit={(e) => e.preventDefault()}>
 							<div>
-								<label>Фио</label>
+								<label>Серийный номер</label>
 								<input
-									placeholder="ФИО"
 									type="text"
-									value={name}
-									onChange={(e) => setName(e.target.value)}
-								/>
-								<p className={styles.exception}></p>
-							</div>
-							<div>
-								<label>Подразделение</label>
-								<input
-									placeholder="Подразделение"
-									type="text"
-									value={department}
+									value={serialNumber}
 									onChange={(e) =>
-										setDepartment(e.target.value)
+										setSerialNumber(e.target.value)
 									}
 								/>
 								<p className={styles.exception}></p>
 							</div>
 							<div>
-								<label>Должность</label>
-								<input
-									placeholder="Должность"
-									type="text"
-									value={post}
-									onChange={(e) => setPost(e.target.value)}
+								<label>Дата начала открытого ключа</label>
+								<DatePicker
+									selected={publicKeyStartDate}
+									onChange={(date) =>
+										setPublicKeyStartDate(date)
+									}
 								/>
 								<p className={styles.exception}></p>
 							</div>
 							<div>
-								<label>Статус</label>
+								<label>Дата окончания открытого ключа</label>
+								<DatePicker
+									selected={publicKeyEndDate}
+									onChange={(date) =>
+										setPublicKeyEndDate(date)
+									}
+								/>
+								<p className={styles.exception}></p>
+							</div>
+							<div>
+								<label>Дата начала закрытого ключа</label>
+								<DatePicker
+									selected={privateKeyStartDate}
+									onChange={(date) =>
+										setPrivateKeyStartDate(date)
+									}
+								/>
+								<p className={styles.exception}></p>
+							</div>
+							<div>
+								<label>Дата окончания закрытого ключа</label>
+								<DatePicker
+									selected={privateKeyEndDate}
+									onChange={(date) =>
+										setPrivateKeyEndDate(date)
+									}
+								/>
+								<p className={styles.exception}></p>
+							</div>
+							<div>
+								<label>Тип подписи</label>
 								<Select
-									options={options}
-									value={options.find(
-										(c) => c.value === employeeStatus
+									options={signatureTypeOptions}
+									value={signatureTypeOptions.find(
+										(c) => c.value === signatureType
 									)}
 									onChange={(val) =>
-										setEmployeeStatus(val.value)
+										setSignatureType(val.value)
 									}
-								></Select>
+								/>
+								<p className={styles.exception}></p>
+							</div>
+							<div>
+								<label>Сотрудник</label>
+								<Select
+									options={employeeOptions}
+									value={employeeOptions.find(
+										(c) => c.value === ownerGuid
+									)}
+									onChange={(val) => setOwnerGuid(val.value)}
+								/>
 								<p className={styles.exception}></p>
 							</div>
 							<div className={styles.buttons}>
