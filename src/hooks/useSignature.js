@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ConvertDateTimeToShortDate } from "../common/Converters/DateConverter";
 
 export default function useEmployee() {
 	const [serialNumber, setSerialNumber] = useState("");
@@ -6,15 +7,23 @@ export default function useEmployee() {
 	const [publicKeyEndDate, setPublicKeyEndDate] = useState("");
 	const [privateKeyStartDate, setPrivateKeyStartDate] = useState("");
 	const [privateKeyEndDate, setPrivateKeyEndDate] = useState("");
-	const [signatureType, setSignatureType] = useState(2);
-    const [ownerGuid, setOwnerGuid] = useState("");
-	
+	const [signatureType, setSignatureType] = useState(Number);
+	const [ownerGuid, setOwnerGuid] = useState("");
 
 	const parseResponse = (response) => {
 		setSerialNumber(response.serialNumber);
-		setPublicKeyStartDate(response.publicKeyStartDate);
-		setPublicKeyEndDate(response.publicKeyEndDate);
-		setPrivateKeyStartDate(response.privateKeyStartDate);
+		setPublicKeyStartDate(
+			ConvertDateTimeToShortDate(response.publicKeyStartDate)
+		);
+		setPublicKeyEndDate(
+			ConvertDateTimeToShortDate(response.publicKeyEndDate)
+		);
+		setPrivateKeyStartDate(
+			ConvertDateTimeToShortDate(response.privateKeyStartDate)
+		);
+		setPrivateKeyEndDate(
+			ConvertDateTimeToShortDate(response.privateKeyEndDate)
+		);
 		setSignatureType(response.signatureType);
 		setOwnerGuid(response.ownerGuid);
 	};
@@ -46,6 +55,6 @@ export default function useEmployee() {
 		ownerGuid,
 		setOwnerGuid,
 		parseResponse,
-		createRequestBody
+		createRequestBody,
 	};
 }
