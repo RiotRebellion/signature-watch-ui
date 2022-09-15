@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { SIGNATURES } from "../../constants/api";
 import { SignatureTypeIntToStringConverter } from "../../common/Converters/SignatureTypeConverter";
+import { ConvertDateTimeToShortDate } from "../../common/Converters/DateConverter";
 import { CREATE, EDIT } from "../../constants/detailedModalMode";
 import useData from "../../hooks/useData";
 import useModalProperty from "../../hooks/useModalProperty";
@@ -10,7 +11,6 @@ import ItemToolBar from "../../components/ItemToolBar";
 import DetailedSignatureModal from "./DetailedSignatureModal";
 
 import styles from "../../styles/dataContent.module.css";
-import { ConvertDateTimeToShortDate } from "../../common/Converters/DateConverter";
 
 export default function SignaturesPage() {
 	const {
@@ -82,7 +82,11 @@ export default function SignaturesPage() {
 									signature.privateKeyEndDate
 								)}
 							</div>
-							<div>{signature.signatureType}</div>
+							<div>
+								{SignatureTypeIntToStringConverter(
+									signature.signatureType
+								)}
+							</div>
 							<div>{signature.employeeName}</div>
 							<div>
 								<ItemToolBar

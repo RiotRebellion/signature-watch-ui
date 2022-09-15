@@ -6,16 +6,16 @@ export default function useData() {
 	const [dataItem, setDataItem] = useState({})
 	
 	const cleanDataItem = () => setDataItem({});	
-	const getAll = (api) => {
-		axiosContext
+	const getAll = async (api) => {
+		await axiosContext
 			.get(api)
 			.then((response) => setData(response.data))
 			.then(() => console.log(data))
 			.catch((error) => console.log(error.toJSON()));
 	};
 
-	const getById = (api, id) => {
-		 axiosContext
+	const getById = async (api, id) => {
+		await axiosContext
 			.get(`${api}/${id}`)
 			.then((response) => setDataItem(response.data))
 			.catch((error) => console.log(error.toJSON()));

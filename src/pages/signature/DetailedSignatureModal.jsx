@@ -1,5 +1,5 @@
 import { Modal } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import { SIGNATURES, EMPLOYEES } from "../../constants/api";
@@ -18,10 +18,19 @@ export default function DetailedSignatureModal({
 	cleanDataItem,
 }) {
 	{
-		let { data, getAll } = useData();
-		const employeeOptions = data.map((item) => {
-			return { value: item.guid, label: item.name };
-		});
+		const { data, getAll } = useData();
+		const [employeeOptions, setEmployeeOptions] = useState([]);
+
+		const loadEmployeeOptions = () => {
+			const arr = [];
+			getAll(EMPLOYEES).then(() => {
+				data.map((item) =>
+					arr.push({ value: item.guid, label: item.name })
+				);
+				setEmployeeOptions(arr);
+				console.log(employeeOptions);
+			});
+		};
 
 		const signatureTypeOptions = [
 			{ value: 0, label: "Физическая" },
@@ -49,7 +58,6 @@ export default function DetailedSignatureModal({
 
 		useEffect(() => {
 			parseResponse(dataItem);
-			getAll(EMPLOYEES);
 		}, [dataItem]);
 
 		const handleClose = () => {
@@ -99,7 +107,8 @@ export default function DetailedSignatureModal({
 							<div>
 								<label>Дата начала открытого ключа</label>
 								<DatePicker
-									selected={publicKeyStartDate}
+									dateFormat={"dd/MM/yyyy"}
+									selected={new Date(publicKeyStartDate)}
 									onChange={(date) =>
 										setPublicKeyStartDate(date)
 									}
@@ -109,7 +118,8 @@ export default function DetailedSignatureModal({
 							<div>
 								<label>Дата окончания открытого ключа</label>
 								<DatePicker
-									selected={publicKeyEndDate}
+									dateFormat={"dd/MM/yyyy"}
+									selected={new Date(publicKeyEndDate)}
 									onChange={(date) =>
 										setPublicKeyEndDate(date)
 									}
@@ -119,7 +129,8 @@ export default function DetailedSignatureModal({
 							<div>
 								<label>Дата начала закрытого ключа</label>
 								<DatePicker
-									selected={privateKeyStartDate}
+									dateFormat={"dd/MM/yyyy"}
+									selected={new Date(privateKeyStartDate)}
 									onChange={(date) =>
 										setPrivateKeyStartDate(date)
 									}
@@ -129,7 +140,8 @@ export default function DetailedSignatureModal({
 							<div>
 								<label>Дата окончания закрытого ключа</label>
 								<DatePicker
-									selected={privateKeyEndDate}
+									dateFormat={"dd/MM/yyyy"}
+									selected={new Date(privateKeyEndDate)}
 									onChange={(date) =>
 										setPrivateKeyEndDate(date)
 									}
