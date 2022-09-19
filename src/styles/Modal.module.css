@@ -3,10 +3,73 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 400;
-	border: 2px solid #000;
+	padding: 5px;
+	background: #a8a8f5d3;
+	border: 1px, #a8a8f5d3;
+	border-radius: 10px;
 }
 
-.modal_box .exception {
-	margin: 0;
+.modal_box > form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.input_container {
+	margin-bottom: 5px;
+	padding: 10px;
+	width: 600px;
+}
+
+.input_container > label {
+	color: rgb(224, 224, 224);
+	font-size: 20px;
+}
+
+.input_container > .exception {
+	margin-left: 5px;
+	color: red;
+	font-size: 11px;
+}
+
+.input_container > input {
+	line-height: 1.2;
+	font-size: 18px;
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+	margin: 2px;
+}
+
+.button_panel {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 17px;
+}
+
+.button_panel > button {
+	font-size: 12px;
+	color: #fff;
+	line-height: 1.2;
+	text-transform: uppercase;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	padding: 0 20px;
+	margin: 5px;
+	width: 100%;
+	height: 50px;
+	background-color: #827ffe;
+	border: 0px;
+	border-radius: 3px;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
+
+.button_panel > button:hover {
+	opacity: 0.8;
 }

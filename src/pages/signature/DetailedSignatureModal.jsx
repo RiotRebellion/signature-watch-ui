@@ -93,7 +93,7 @@ export default function DetailedSignatureModal({
 				>
 					<div id="body" className={styles.modal_box}>
 						<form onSubmit={(e) => e.preventDefault()}>
-							<div>
+							<div className={styles.input_container}>
 								<label>Серийный номер</label>
 								<input
 									type="text"
@@ -104,7 +104,7 @@ export default function DetailedSignatureModal({
 								/>
 								<p className={styles.exception}></p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Дата начала открытого ключа</label>
 								<DatePicker
 									dateFormat={"dd/MM/yyyy"}
@@ -115,7 +115,7 @@ export default function DetailedSignatureModal({
 								/>
 								<p className={styles.exception}></p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Дата окончания открытого ключа</label>
 								<DatePicker
 									dateFormat={"dd/MM/yyyy"}
@@ -126,7 +126,7 @@ export default function DetailedSignatureModal({
 								/>
 								<p className={styles.exception}></p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Дата начала закрытого ключа</label>
 								<DatePicker
 									dateFormat={"dd/MM/yyyy"}
@@ -137,7 +137,7 @@ export default function DetailedSignatureModal({
 								/>
 								<p className={styles.exception}></p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Дата окончания закрытого ключа</label>
 								<DatePicker
 									dateFormat={"dd/MM/yyyy"}
@@ -148,7 +148,7 @@ export default function DetailedSignatureModal({
 								/>
 								<p className={styles.exception}></p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Тип подписи</label>
 								<Select
 									options={signatureTypeOptions}
@@ -161,7 +161,7 @@ export default function DetailedSignatureModal({
 								/>
 								<p className={styles.exception}></p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Сотрудник</label>
 								<Select
 									options={employeeOptions}
@@ -172,7 +172,7 @@ export default function DetailedSignatureModal({
 								/>
 								<p className={styles.exception}></p>
 							</div>
-							<div className={styles.buttons}>
+							<div className={styles.buttons_panel}>
 								<button onClick={(e) => handleClose()}>
 									Отмена
 								</button>

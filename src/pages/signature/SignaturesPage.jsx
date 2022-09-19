@@ -9,6 +9,7 @@ import useModalProperty from "../../hooks/useModalProperty";
 import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
 import DetailedSignatureModal from "./DetailedSignatureModal";
+import { CircularProgress } from "@mui/material";
 
 import styles from "../../styles/dataContent.module.css";
 
@@ -16,6 +17,7 @@ export default function SignaturesPage() {
 	const {
 		data,
 		dataItem,
+		isLoading,
 		cleanDataItem,
 		getAll,
 		getById,
@@ -28,7 +30,7 @@ export default function SignaturesPage() {
 
 	useEffect(() => {
 		getAll(SIGNATURES);
-	}, [dataItem]);
+	}, [modalProperty.modalVisibility]);
 
 	const openCreateForm = () => {
 		modalProperty.setModalMode(CREATE);
@@ -44,64 +46,76 @@ export default function SignaturesPage() {
 	return (
 		<main className={styles.content}>
 			<h2>Электронные подписи</h2>
-			<div className={styles.toolbox}>
-				<PageToolBox createHandler={openCreateForm} />
-			</div>
-			<div className={styles.data_container}>
-				<div className={styles.data_header}>
-					<div>Серийный номер</div>
-					<div>Дата начала публичного ключа</div>
-					<div>Дата окончания публичного ключа</div>
-					<div>Дата начала приватного ключа</div>
-					<div>Дата окончания приватного ключа</div>
-					<div>Тип подписи</div>
-					<div>Владелец</div>
-					<div></div>
+			{isLoading ? (
+				<div className={styles.loading_box}>
+					<CircularProgress />
 				</div>
-				{data.map((signature) => {
-					return (
-						<div className={styles.data_row} key={signature.guid}>
-							<div>{signature.serialNumber}</div>
-							<div>
-								{ConvertDateTimeToShortDate(
-									signature.publicKeyStartDate
-								)}
+			) : (
+				<div className={styles.data_container}>
+					<div className={styles.toolbox}>
+						<PageToolBox createHandler={openCreateForm} />
+					</div>
+					<div className={styles.data_header}>
+						<div>Серийный номер</div>
+						<div>Дата начала публичного ключа</div>
+						<div>Дата окончания публичного ключа</div>
+						<div>Дата начала приватного ключа</div>
+						<div>Дата окончания приватного ключа</div>
+						<div>Тип подписи</div>
+						<div>Владелец</div>
+						<div></div>
+					</div>
+					{data.map((signature) => {
+						return (
+							<div
+								className={styles.data_row}
+								key={signature.guid}
+							>
+								<div>{signature.serialNumber}</div>
+								<div>
+									{ConvertDateTimeToShortDate(
+										signature.publicKeyStartDate
+									)}
+								</div>
+								<div>
+									{ConvertDateTimeToShortDate(
+										signature.publicKeyEndDate
+									)}
+								</div>
+								<div>
+									{ConvertDateTimeToShortDate(
+										signature.privateKeyStartDate
+									)}
+								</div>
+								<div>
+									{ConvertDateTimeToShortDate(
+										signature.privateKeyEndDate
+									)}
+								</div>
+								<div>
+									{SignatureTypeIntToStringConverter(
+										signature.signatureType
+									)}
+								</div>
+								<div>{signature.employeeName}</div>
+								<div>
+									<ItemToolBar
+										editHandler={(e) => {
+											openEditForm(signature.guid);
+										}}
+										deleteHandler={(e) =>
+											deleteItem(
+												SIGNATURES,
+												signature.guid
+											)
+										}
+									/>
+								</div>
 							</div>
-							<div>
-								{ConvertDateTimeToShortDate(
-									signature.publicKeyEndDate
-								)}
-							</div>
-							<div>
-								{ConvertDateTimeToShortDate(
-									signature.privateKeyStartDate
-								)}
-							</div>
-							<div>
-								{ConvertDateTimeToShortDate(
-									signature.privateKeyEndDate
-								)}
-							</div>
-							<div>
-								{SignatureTypeIntToStringConverter(
-									signature.signatureType
-								)}
-							</div>
-							<div>{signature.employeeName}</div>
-							<div>
-								<ItemToolBar
-									editHandler={(e) => {
-										openEditForm(signature.guid);
-									}}
-									deleteHandler={(e) =>
-										deleteItem(SIGNATURES, signature.guid)
-									}
-								/>
-							</div>
-						</div>
-					);
-				})}
-			</div>
+						);
+					})}
+				</div>
+			)}
 			{modalProperty.modalVisibility ? (
 				<DetailedSignatureModal
 					modalProperty={modalProperty}

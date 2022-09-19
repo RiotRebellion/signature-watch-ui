@@ -8,6 +8,7 @@ import useModalProperty from "../../hooks/useModalProperty";
 import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
 import DetailedEmployeeModal from "./DetailedEmployeeModal";
+import { CircularProgress } from "@mui/material";
 
 import styles from "../../styles/dataContent.module.css";
 
@@ -15,6 +16,7 @@ export default function EmployeesPage() {
 	const {
 		data,
 		dataItem,
+		isLoading,
 		cleanDataItem,
 		getAll,
 		getById,
@@ -43,42 +45,51 @@ export default function EmployeesPage() {
 	return (
 		<main className={styles.content}>
 			<h2>Сотрудники</h2>
-			<div className={styles.toolbox}>
-				<PageToolBox createHandler={openCreateForm} />
-			</div>
-			<div className={styles.data_container}>
-				<div className={styles.data_header}>
-					<div>ФИО</div>
-					<div>Должность</div>
-					<div>Отдел</div>
-					<div>Статус</div>
-					<div></div>
+			{isLoading ? (
+				<div className={styles.loading_box}>
+					<CircularProgress />
 				</div>
-				{data.map((employee) => {
-					return (
-						<div className={styles.data_row} key={employee.guid}>
-							<div>{employee.name}</div>
-							<div>{employee.post}</div>
-							<div>{employee.department}</div>
-							<div>
-								{EmployeeStatusIntToStringConverter(
-									employee.employeeStatus
-								)}
+			) : (
+				<div className={styles.data_container}>
+					<div className={styles.toolbox}>
+						<PageToolBox createHandler={openCreateForm} />
+					</div>
+					<div className={styles.data_header}>
+						<div>ФИО</div>
+						<div>Должность</div>
+						<div>Отдел</div>
+						<div>Статус</div>
+						<div></div>
+					</div>
+					{data.map((employee) => {
+						return (
+							<div
+								className={styles.data_row}
+								key={employee.guid}
+							>
+								<div>{employee.name}</div>
+								<div>{employee.post}</div>
+								<div>{employee.department}</div>
+								<div>
+									{EmployeeStatusIntToStringConverter(
+										employee.employeeStatus
+									)}
+								</div>
+								<div>
+									<ItemToolBar
+										editHandler={(e) => {
+											openEditForm(employee.guid);
+										}}
+										deleteHandler={(e) =>
+											deleteItem(EMPLOYEES, employee.guid)
+										}
+									/>
+								</div>
 							</div>
-							<div>
-								<ItemToolBar
-									editHandler={(e) => {
-										openEditForm(employee.guid);
-									}}
-									deleteHandler={(e) =>
-										deleteItem(EMPLOYEES, employee.guid)
-									}
-								/>
-							</div>
-						</div>
-					);
-				})}
-			</div>
+						);
+					})}
+				</div>
+			)}
 			{modalProperty.modalVisibility ? (
 				<DetailedEmployeeModal
 					modalProperty={modalProperty}

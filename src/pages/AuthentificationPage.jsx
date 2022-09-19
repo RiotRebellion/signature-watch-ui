@@ -4,6 +4,7 @@ import { authContext } from "../contexts/authContext";
 import { LOGIN } from "../constants/api";
 
 import styles from "../styles/AuthentificationPage.module.css";
+import { Box, CircularProgress } from "@mui/material";
 
 function AuthentificationPage(props) {
 	const [username, setUsername] = useState(null);
@@ -13,8 +14,10 @@ function AuthentificationPage(props) {
 		useState();
 
 	const { login } = useContext(authContext);
+	const [isLoading, setIsLoading] = useState(false);
 
 	async function Authentificate() {
+		setIsLoading(true);
 		await axiosContext
 			.post(LOGIN, { username, password })
 			.then((response) => {
@@ -26,7 +29,8 @@ function AuthentificationPage(props) {
 				let validationErrors = error.response.data.errors;
 				console.log(validationErrors);
 				setAuthenftificationException(validationErrors["Username"]);
-			});
+			})
+			.finally(() => setIsLoading(false));
 	}
 
 	useEffect(() => {
@@ -57,7 +61,11 @@ function AuthentificationPage(props) {
 					</div>
 					<div className={styles.submitButton}>
 						<button type="submit" onClick={Authentificate}>
-							Авторизоваться
+							{isLoading ? (
+								<CircularProgress color="secondary" />
+							) : (
+								"Авторизация"
+							)}
 						</button>
 					</div>
 				</form>

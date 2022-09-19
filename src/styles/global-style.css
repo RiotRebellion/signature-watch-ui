@@ -1,24 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Raleway&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&family=Raleway&display=swap");
 
 :root {
-
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Comic Sans MS, Comic Sans, cursive;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Comic Sans MS, Comic Sans, cursive;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+	text-decoration: none;
+	color: inherit;
 }
 
 li {
-  list-style: none;
+	list-style: none;
 }
 
 div#root {
+}
+
+.react-datepicker__input-container input,
+.react-select__input-container input {
+	line-height: 1.2;
+	font-size: 18px;
+	width: 100%;
+	height: 40px;
+	padding: 10px;
 }

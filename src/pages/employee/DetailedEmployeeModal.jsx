@@ -1,4 +1,4 @@
-import { MenuItem, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import React, { useEffect } from "react";
 import Select from "react-select";
 import { EMPLOYEES } from "../../constants/api";
@@ -70,7 +70,7 @@ export default function DetailedEmployeeModal({
 				>
 					<div id="body" className={styles.modal_box}>
 						<form onSubmit={(e) => e.preventDefault()}>
-							<div>
+							<div className={styles.input_container}>
 								<label>Фио</label>
 								<input
 									placeholder="ФИО"
@@ -78,9 +78,9 @@ export default function DetailedEmployeeModal({
 									value={name}
 									onChange={(e) => setName(e.target.value)}
 								/>
-								<p className={styles.exception}></p>
+								<p className={styles.exception}>ошибка</p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Подразделение</label>
 								<input
 									placeholder="Подразделение"
@@ -90,9 +90,9 @@ export default function DetailedEmployeeModal({
 										setDepartment(e.target.value)
 									}
 								/>
-								<p className={styles.exception}></p>
+								<p className={styles.exception}>ошибка</p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Должность</label>
 								<input
 									placeholder="Должность"
@@ -100,9 +100,9 @@ export default function DetailedEmployeeModal({
 									value={post}
 									onChange={(e) => setPost(e.target.value)}
 								/>
-								<p className={styles.exception}></p>
+								<p className={styles.exception}>ошибка</p>
 							</div>
-							<div>
+							<div className={styles.input_container}>
 								<label>Статус</label>
 								<Select
 									options={employeeStatusOptions}
@@ -113,9 +113,9 @@ export default function DetailedEmployeeModal({
 										setEmployeeStatus(val.value)
 									}
 								/>
-								<p className={styles.exception}></p>
+								<p className={styles.exception}>ошибка</p>
 							</div>
-							<div className={styles.buttons}>
+							<div className={styles.button_panel}>
 								<button onClick={(e) => handleClose()}>
 									Отмена
 								</button>
