@@ -30,7 +30,7 @@ export default function SignaturesPage() {
 
 	useEffect(() => {
 		getAll(SIGNATURES);
-	}, [modalProperty.modalVisibility]);
+	}, [dataItem]);
 
 	const openCreateForm = () => {
 		modalProperty.setModalMode(CREATE);

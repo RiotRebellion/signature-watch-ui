@@ -1,14 +1,15 @@
 import { Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import AsyncSelect from "react-select/async";
 import DatePicker from "react-datepicker";
 import { SIGNATURES, EMPLOYEES } from "../../constants/api";
 import { CREATE, EDIT } from "../../constants/detailedModalMode";
 import useSignature from "../../hooks/useSignature";
-import useData from "../../hooks/useData";
 
 import styles from "../../styles/Modal.module.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { axiosContext } from "../../contexts/axiosContext";
 
 export default function DetailedSignatureModal({
 	modalProperty,
@@ -18,19 +19,7 @@ export default function DetailedSignatureModal({
 	cleanDataItem,
 }) {
 	{
-		const { data, getAll } = useData();
 		const [employeeOptions, setEmployeeOptions] = useState([]);
-
-		const loadEmployeeOptions = () => {
-			const arr = [];
-			getAll(EMPLOYEES).then(() => {
-				data.map((item) =>
-					arr.push({ value: item.guid, label: item.name })
-				);
-				setEmployeeOptions(arr);
-				console.log(employeeOptions);
-			});
-		};
 
 		const signatureTypeOptions = [
 			{ value: 0, label: "Физическая" },
@@ -55,6 +44,25 @@ export default function DetailedSignatureModal({
 			parseResponse,
 			createRequestBody,
 		} = useSignature();
+
+		const mapEmployees = (array) => {
+			let result = [];
+			console.log(array[0]);
+			array.map((item) => {
+				result.push({ label: item.name, value: item.guid });
+				console.log(item);
+			});
+			setEmployeeOptions(result);
+			return result;
+		};
+
+		const loadEmployeeOptions = () =>
+			new Promise((resolve) => {
+				axiosContext.get(EMPLOYEES).then((response) => {
+					let data = response.data;
+					resolve(mapEmployees(data));
+				});
+			});
 
 		useEffect(() => {
 			parseResponse(dataItem);
@@ -163,11 +171,12 @@ export default function DetailedSignatureModal({
 							</div>
 							<div className={styles.input_container}>
 								<label>Сотрудник</label>
-								<Select
-									options={employeeOptions}
+								<AsyncSelect
+									defaultOptions
 									value={employeeOptions.find(
 										(c) => c.value === ownerGuid
 									)}
+									loadOptions={loadEmployeeOptions}
 									onChange={(val) => setOwnerGuid(val.value)}
 								/>
 								<p className={styles.exception}></p>
