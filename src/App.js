@@ -10,6 +10,7 @@ import AuthentificationForm from './pages/AuthentificationPage';
 import { NotFound } from './pages/NotFound';
 import EmployeesPage from './pages/employee/EmployeesPage';
 import SignaturesPage from "./pages/signature/SignaturesPage";
+import AccordanceSertificatePage from "./pages/accordance-sertificate/AccordanceSertificatesPage";
 
 function App() {
     const { login, logout, username, token } = useAuthentification();
@@ -32,6 +33,7 @@ function RoutesComponent({ isLogin = false }) {
                 <Route path='/' element={<Dashboard />}>
                     <Route path='/employees' element={<EmployeesPage />}/>
                     <Route path='/signatures' element={<SignaturesPage/>}/>
+                    <Route path='/accordanceSertificates' element={<AccordanceSertificatePage />} />
                     <Route path='*' element={<NotFound />} />
                 </Route>
             </Routes>

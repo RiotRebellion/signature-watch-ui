@@ -7,9 +7,9 @@ import {
 export default function useEmployee() {
 	const [serialNumber, setSerialNumber] = useState("");
 	const [publicKeyStartDate, setPublicKeyStartDate] = useState();
-	const [publicKeyEndDate, setPublicKeyEndDate] = useState("");
-	const [privateKeyStartDate, setPrivateKeyStartDate] = useState("");
-	const [privateKeyEndDate, setPrivateKeyEndDate] = useState("");
+	const [publicKeyEndDate, setPublicKeyEndDate] = useState();
+	const [privateKeyStartDate, setPrivateKeyStartDate] = useState();
+	const [privateKeyEndDate, setPrivateKeyEndDate] = useState();
 	const [signatureType, setSignatureType] = useState();
 	const [ownerGuid, setOwnerGuid] = useState("");
 

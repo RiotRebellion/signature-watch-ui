@@ -1,134 +1,131 @@
 header {
-    width: 100%;
-
+	width: 100%;
 }
 
-nav{
-    width: 100%;
-    height: 45px;
-    display: flex;
-    background-color: #827ffe;
-    position: relative;
-    align-items: center;
-    justify-content: start;
-    /* justify-content: space-between; */
-    color: #fff;
-    z-index: 0;
-    margin: 0;
-    padding: 0;
+nav {
+	width: 100%;
+	display: flex;
+	background-color: #827ffe;
+	position: relative;
+	align-items: center;
+	justify-content: start;
+	color: #fff;
+	z-index: 0;
+	margin: 0;
+	padding: 0;
 }
 
-.menu{
-    height: 100%;
-    text-align: center;
-    float: left;
-    padding: 0;
-    margin: 0;
-    display: flex;
+.menu {
+	height: 100%;
+	text-align: center;
+	float: left;
+	padding: 0;
+	margin: 0;
+	display: flex;
 }
 
-.menu > li{
-    display: block;
-    position: relative;
-    height: 100%;
-    margin-right: 5px;
+.menu > li {
+	display: block;
+	position: relative;
+	height: 100%;
+	margin-right: 5px;
 }
 
-.menuItem{
-    display: block;
-    padding: 10px;
-    position: static;
-    margin: 0;
-    height: 100%;
+.menuItem {
+	display: block;
+	padding: 10px;
+	position: static;
+	margin: 0;
+	height: 100%;
 }
 
-.menu> li:hover .menuItem{
-    background-color: #a19ffc;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
+.menu > li:hover .menuItem {
+	background-color: #a19ffc;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
 }
 
-.title{
-    padding: 10px;
-    margin: 0;
+.title {
+	padding: 10px;
+	margin: 0;
 }
 
-.menu > li:hover > .submenu{
-    display: block;
+.menu > li:hover > .submenu {
+	display: block;
 }
 
-.submenu{
-    display: none;
-    height: auto;
-    width: 100%;
-    position: absolute;
-    background-color: #827ffe;
-    box-shadow: 0px 8px 16px 0px rgba(0 ,0, 0, 0.2);
-    z-index: 1;
+.submenu {
+	display: none;
+	height: auto;
+	width: 100%;
+	position: absolute;
+	background-color: #827ffe;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
 }
 
 .submenu > li {
-    display: block;
-    padding: 10px;
+	display: block;
+	padding: 10px 0;
 }
 
-.submenu > li:hover{
-    display: block;
-    background-color: #a19ffc;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
+.submenu > li:hover {
+	display: block;
+	background-color: #a19ffc;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
 }
 
-.logout{
-    float: right;
-    height: 100%;
-    display: block;
-    padding: 0;
-    margin: 0;
-    margin-left: 5px;
+.logout {
+	float: right;
+	height: 100%;
+	display: block;
+	padding: 0;
+	margin: 0;
+	margin-left: 5px;
 }
 
-.user_profile{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    margin: 0;
-    margin-left: auto;
+.user_profile {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin: 0;
+	margin-left: auto;
 }
 
-.user_profile:hover{
-    background-color: #a19ffc;
-    cursor: pointer;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
+.user_profile:hover {
+	background-color: #a19ffc;
+	cursor: pointer;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
 }
 
-.logoutButton{
-    color: #fff;
-    padding: 10px;
-    margin: 0;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    width: 100%;
-    height: 100%;
-    background-color: #827ffe;
-    border: 0px;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
+.logoutButton {
+	color: #fff;
+	padding: 10px;
+	margin: 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	width: 100%;
+	height: 100%;
+	background-color: #827ffe;
+	border: 0px;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
 }
 
-.logoutButton:hover{
-   background-color: #a19ffc;
-   cursor: pointer;
+.logoutButton:hover {
+	background-color: #a19ffc;
+	cursor: pointer;
 }

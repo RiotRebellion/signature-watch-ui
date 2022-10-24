@@ -9,8 +9,8 @@ import styles from "../../styles/Modal.module.css";
 
 export default function DetailedEmployeeModal({
 	modalProperty,
-	createEmployeeHandler,
-	updateEmployeeHandler,
+	createHandler,
+	updateHandler,
 	dataItem,
 	cleanDataItem,
 }) {
@@ -46,10 +46,10 @@ export default function DetailedEmployeeModal({
 				let body = createRequestBody();
 				switch (modalProperty.modalMode) {
 					case CREATE:
-						createEmployeeHandler(EMPLOYEES, body);
+						createHandler(EMPLOYEES, body);
 						break;
 					case EDIT:
-						updateEmployeeHandler(EMPLOYEES, dataItem.guid, body);
+						updateHandler(EMPLOYEES, dataItem.guid, body);
 						break;
 					default:
 						break;

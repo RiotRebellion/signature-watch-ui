@@ -20,7 +20,41 @@ function NavBar() {
 						</div>
 						<ul className={styles.submenu}>
 							<li>
+								<NavLink to="Distributions">
+									Дистрибутивы
+								</NavLink>
+							</li>
+							<li>
+								<NavLink to="Contracts">Контракты</NavLink>
+							</li>
+							<li>
+								<NavLink to="SoftwareLicenses">
+									Лицензии программного обеспечения
+								</NavLink>
+							</li>
+							<li>
+								<NavLink to="Softwares">
+									Программное обеспечение
+								</NavLink>
+							</li>
+							<li>
+								<NavLink to="AccordanceSertificates">
+									Сертификаты соответствия
+								</NavLink>
+							</li>
+							<li>
 								<NavLink to="Employees">Сотрудники</NavLink>
+							</li>
+							<li>
+								<NavLink to="SoftwareTypes">
+									Типы программного обеспечения
+								</NavLink>
+							</li>
+							<li>
+								<NavLink to="Supports">Техподдержки</NavLink>
+							</li>
+							<li>
+								<NavLink to="Formulars">Формуляры</NavLink>
 							</li>
 							<li>
 								<NavLink to="Signatures">
@@ -29,12 +63,12 @@ function NavBar() {
 							</li>
 						</ul>
 					</li>
-					<li>
+					{/* <li>
 						<div className={styles.menuItem}>СЭД "ДЕЛО"</div>
 						<ul className={styles.submenu}>
 							<li>sas</li>
 						</ul>
-					</li>
+					</li> */}
 					<li>
 						<NavLink to="/admin">
 							<div className={styles.menuItem}>
@@ -47,9 +81,9 @@ function NavBar() {
 					<p>{username}</p>
 				</div>
 				<div className={styles.logout}>
-					<NavLink to="/" onClick={logout}>
-						<button className={styles.logoutButton}>Выход</button>
-					</NavLink>
+					<button className={styles.logoutButton} onClick={logout}>
+						Выход
+					</button>
 				</div>
 			</nav>
 		</header>

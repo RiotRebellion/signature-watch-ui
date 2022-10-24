@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { EMPLOYEES } from "../../constants/api";
-import { EmployeeStatusIntToStringConverter } from "../../common/Converters/EmployeeStatusConverter";
+import { ACCORDANCE_SERTIFICATES } from "../../constants/api";
 import { CREATE, EDIT } from "../../constants/detailedModalMode";
 import useData from "../../hooks/useData";
 import useModalProperty from "../../hooks/useModalProperty";
 
 import PageToolBox from "../../components/PageToolBox";
 import ItemToolBar from "../../components/ItemToolBar";
-import DetailedEmployeeModal from "./DetailedEmployeeModal";
+import DetailedAccordanseSertificateModal from "./DetailedAccordanceSertificateModal";
 import { CircularProgress } from "@mui/material";
 
 import styles from "../../styles/dataContent.module.css";
+import { ConvertDateTimeToShortDate } from "../../common/Converters/DateConverter";
 
-export default function EmployeesPage() {
+export default function AccordanceSertificatesPage() {
 	const {
 		data,
 		dataItem,
@@ -28,7 +28,7 @@ export default function EmployeesPage() {
 	const modalProperty = useModalProperty();
 
 	useEffect(() => {
-		getAll(EMPLOYEES);
+		getAll(ACCORDANCE_SERTIFICATES);
 	}, [dataItem]);
 
 	const openCreateForm = () => {
@@ -37,14 +37,14 @@ export default function EmployeesPage() {
 	};
 
 	const openEditForm = (id) => {
-		getById(EMPLOYEES, id);
+		getById(ACCORDANCE_SERTIFICATES, id);
 		modalProperty.setModalMode(EDIT);
 		modalProperty.setModalVisibility(true);
 	};
 
 	return (
 		<main className={styles.content}>
-			<h2>Сотрудники</h2>
+			<h2>Сертификаты соответствия</h2>
 			{isLoading ? (
 				<div className={styles.loading_box}>
 					<CircularProgress />
@@ -55,33 +55,52 @@ export default function EmployeesPage() {
 						<PageToolBox createHandler={openCreateForm} />
 					</div>
 					<div className={styles.data_header}>
-						<div>ФИО</div>
-						<div>Должность</div>
-						<div>Отдел</div>
-						<div>Статус</div>
+						<div>Регистрационный номер</div>
+						<div>Дата начала</div>
+						<div>Дата окончания</div>
+						<div>Дата пролонгации</div>
+						<div>Имя формуляра</div>
+						<div>Серийный номер формуляра</div>
 						<div></div>
 					</div>
-					{data.map((employee) => {
+					{data.map((accordanseSertificate) => {
 						return (
 							<div
 								className={styles.data_row}
-								key={employee.guid}
+								key={accordanseSertificate.guid}
 							>
-								<div>{employee.name}</div>
-								<div>{employee.post}</div>
-								<div>{employee.department}</div>
+								<div>{accordanseSertificate.regNumber}</div>
 								<div>
-									{EmployeeStatusIntToStringConverter(
-										employee.employeeStatus
+									{ConvertDateTimeToShortDate(
+										accordanseSertificate.acquisitionDate
 									)}
+								</div>
+								<div>
+									{ConvertDateTimeToShortDate(
+										accordanseSertificate.expirationDate
+									)}
+								</div>
+								<div>
+									{ConvertDateTimeToShortDate(
+										accordanseSertificate.prolongDate
+									)}
+								</div>
+								<div>{accordanseSertificate.formularName}</div>
+								<div>
+									{accordanseSertificate.formularSerialKey}
 								</div>
 								<div>
 									<ItemToolBar
 										editHandler={(e) => {
-											openEditForm(employee.guid);
+											openEditForm(
+												accordanseSertificate.guid
+											);
 										}}
 										deleteHandler={(e) =>
-											deleteItem(EMPLOYEES, employee.guid)
+											deleteItem(
+												ACCORDANCE_SERTIFICATES,
+												accordanseSertificate.guid
+											)
 										}
 									/>
 								</div>
@@ -91,7 +110,7 @@ export default function EmployeesPage() {
 				</div>
 			)}
 			{modalProperty.modalVisibility ? (
-				<DetailedEmployeeModal
+				<DetailedAccordanseSertificateModal
 					modalProperty={modalProperty}
 					dataItem={dataItem}
 					createHandler={createItem}
